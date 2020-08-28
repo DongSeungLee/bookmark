@@ -126,7 +126,9 @@ public class ChildParentTest {
                         .name("name2222")
                         .build()
         );
+
         List<CategoryEntity> ret = flatMapAll(Arrays.asList(c1, c2));
+
         ret.stream().forEach(entity -> System.out.println(entity.getId()));
     }
 
@@ -136,7 +138,9 @@ public class ChildParentTest {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         if (tmp.isEmpty()) {
+
             return Collections.EMPTY_LIST;
+
         }
         tmp.addAll(flatMapAll(tmp));
         return tmp;
