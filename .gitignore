@@ -29,3 +29,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+*.log
+*.txt
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.DS_Store
