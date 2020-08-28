@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600");
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+
+/* padding */
+.padding-top-3 { padding-top: 3px; }
+.padding-right-3 { padding-right: 3px; }
+.padding-bottom-3 { padding-bottom: 3px; }
+.padding-left-3 { padding-left: 3px; }
+.padding-top-bottom-3 { padding: 3px 0; }
+.padding-right-left-3 { padding: 0 3px; }
+.padding-3 { padding: 3px; }
+
+.padding-top-5 { padding-top: 5px; }
+.padding-right-5 { padding-right: 5px; }
+.padding-bottom-5 { padding-bottom: 5px; }
+.padding-left-5 { padding-left: 5px; }
+.padding-top-bottom-5 { padding: 5px 0; }
+.padding-right-left-5 { padding: 0 5px; }
+.padding-5 { padding: 5px; }
+
+.padding-top-12 { padding-top: 12px; }
+.padding-right-12 { padding-right: 12px; }
+.padding-bottom-12 { padding-bottom: 12px; }
+.padding-left-12 { padding-left: 12px; }
+.padding-top-bottom-12 { padding: 12px 0; }
+.padding-right-left-12 { padding: 0 12px; }
+.padding-12 { padding: 12px; }
+
+.padding-top-16 { padding-top: 16px; }
+.padding-right-16 { padding-right: 16px; }
+.padding-bottom-16 { padding-bottom: 16px; }
+.padding-left-16 { padding-left: 16px; }
+.padding-top-bottom-16 { padding: 16px 0; }
+.padding-right-left-16 { padding: 0 16px; }
+.padding-16 { padding: 16px; }
+
+.modal { display: none; position: fixed; left: 0; top: 0; flex-direction: column; align-items: center; justify-content: center; z-index: 200; width: 100%; height: 100%; }
+.modal .modal-overlay { position: fixed; z-index: 199; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); perspective: 9999; }
+.modal .modal-dialog { position: relative; z-index: 200; max-width: 90%; max-height: 90%; border-radius: 0; overflow: auto; -webkit-backface-visibility: hidden; -webkit-overflow-scrolling: touch; -webkit-font-smoothing: subpixel-antialiased; }
+.modal.is-active { display: flex; }
+
+.instagram-popup { position: relative; display: block; width: 1126px; height: 618px; background: url("/img/assets/image/background.png") no-repeat; background-size: contain; }
+.instagram-popup__close { position: absolute; top: 14px; right: 14px; display: inline-block; width: 27px; height: 27px; background: url("/img/assets/image/close-btn.png") no-repeat; background-size: contain; cursor: pointer; z-index: 10; }
+.instagram-popup__left { position: relative; display: table-cell; width: 435px; }
+.instagram-popup__left__iphone { position: absolute; top: 12px; right: 30px; width: 300px; height: 600px; background: url("/img/assets/image/phone.png") no-repeat; background-size: contain; }
+.instagram-popup__right { position: relative; display: table-cell; width: auto; padding-top: 93px; padding-left: 20px; padding-right: 48px; }
+.instagram-popup__right__title { display: block; width: 588px; height: 109px; margin: 0 auto; background: url("/img/assets/image/title.png") no-repeat; }
+.instagram-popup__right__message { display: block; width: 100%; margin-top: 31px; color: #000; font-family: Arial, Helvetica, sans-serif; font-size: 25px; line-height: 31px; letter-spacing: 1px; text-align: center; }
+.instagram-popup__right__tag { display: block; width: 100%; margin-top: 8px; font-family: Arial, Helvetica, sans-serif; font-size: 28px; line-height: 27px; }
+.instagram-popup__right__tag a { color: #1e4b7a; text-decoration: none; cursor: pointer; }
+.instagram-popup__right__tag__icon { display: inline-block; vertical-align: middle; width: 39px; height: 39px; background: url("/img/assets/image/icon.png") no-repeat; background-size: contain; }
+.instagram-popup__right__share { position: relative; display: block; width: 100%; margin-top: 10px; font-family: Arial, Helvetica, sans-serif; font-size: 23px; line-height: 25px; text-align: center; }
+.instagram-popup__right__share input[type=text] { display: inline-block; vertical-align: top; width: 285px; border-top: 0; border-right: 0; border-bottom: 1px solid #000; border-left: 0; font-size: 20px; padding: 0px 10px; outline-color: transparent; }
+.instagram-popup__right__btn { display: block; width: 100%; margin-top: 72px; text-align: center; }
+.instagram-popup__right__hide { display: block; width: 100%; margin-top: 30px; text-align: center; color: #575757; font-family: Arial, Helvetica, sans-serif; font-size: 13px; text-decoration: underline; cursor: pointer; }
+.instagram-popup__right__hide2 { display: block; width: 100%; margin-top: 15px; text-align: center; color: #575757; font-family: Arial, Helvetica, sans-serif; font-size: 13px; text-decoration: underline; cursor: pointer; }
+
+.instagram-popup__right__error { display: none; position: absolute; top: 30px; right: 45px; color: #f00; width: 100%; margin-top: 10px; font-family: Arial, Helvetica, sans-serif; font-size: 18px; line-height: 25px; text-align: right; }
+
+.show-register { position: relative; width: 797px; height: 565px; margin: 0 auto; box-sizing: border-box; }
+.show-register__close { position: absolute; top: 14px; right: 14px; display: inline-block; width: 15px; height: 15px; background: url("./../image/close-btn.png") no-repeat; background-size: contain; cursor: pointer; z-index: 10; }
+.show-register__left { position: relative; display: table-cell; width: 311px; height: 565px; vertical-align: top; background: url("./../image/show-register.jpg") no-repeat; background-size: 100% 100%; }
+.show-register__right { position: relative; display: table-cell; width: auto; vertical-align: top; padding: 33px 59px 60px 48px; background: #fff; }
+.show-register__header { padding-bottom: 17px; border-bottom: 1px solid #999999; }
+.show-register__header__title { display: block; width: 100%; height: 39px; margin: 0; font-size: 30px; font-weight: 400; font-family: 'Roboto', sans-serif; line-height: 39px; color: #366AD4; text-align: center; }
+.show-register__header__text { display: block; margin: 0; padding: 0px 15px; font-size: 13px; line-height: 16px; font-family: 'Roboto', sans-serif; color: #888888; text-align: left; }
+.show-register__content__indication { display: block; margin-top: 16px; text-align: right; color: #666666; font-size: 12px; font-family: 'Roboto', sans-serif; }
+.show-register__content__indication:before { content: '*'; display: inline-block; vertical-align: top; color: #3C74E7; }
+.show-register__content__label { display: table; width: 100%; margin-bottom: 3px; }
+.show-register__content__label__left { display: table-cell; color: #666666; font-size: 13px; font-family: 'Roboto', sans-serif; line-height: 18px; }
+.show-register__content__label__left:after { content: '*'; display: inline-block; vertical-align: top; margin-left: 3px; color: #3C74E7; font-size: 16px; }
+.show-register__content__label__right { display: table-cell; color: #d9534f; font-size: 12px; font-family: 'Roboto', sans-serif; text-align: right; }
+.show-register__content__input { display: block; width: 100%; margin-bottom: 7px; }
+.show-register__content__input input { display: block; width: 100%; padding: 7px; background: #fff; border: 1px solid #BBBBBB; color: #666666; outline: 0; box-sizing: border-box; }
+.show-register__content__input input.error { border-color: #d9534f; }
+.show-register__content__input input.error:focus { border-color: #d9534f; }
+.show-register__content__input input:focus { border-color: #4d90fe; }
+
+.sms-subscribe {position: relative; background: #fff;padding: 55px 46px;display: table;margin: auto;box-sizing: border-box; width: 853px;}
+.sms-subscribe__close {position: absolute; top: 14px; right: 14px; display: inline-block; width: 15px; height: 15px; background: url("./../image/close-btn.png") no-repeat; background-size: contain; cursor: pointer; z-index: 10;}
+.sms-subscribe__left {display: table-cell; vertical-align:top;}
+.sms-subscribe__right {display: table-cell; vertical-align:top; padding-left: 20px;}
+.sms-subscribe__right .step1 .title, .sms-subscribe__right .step2 .title, .sms-subscribe__right .step3 .title  {font-size: 34px; font-family: 'Titillium Web', sans-serif; text-align: left;}
+.sms-subscribe__right .step1 .content, .sms-subscribe__right .step2 .content, .sms-subscribe__right .step3 .content {min-height: 180px; text-align: left;}
+.sms-subscribe__right .step1 .content .description, .sms-subscribe__right .step2 .content .description, .sms-subscribe__right .step3 .content .description {font-size: 18px; line-height: 22px; font-family: 'Titillium Web', sans-serif; text-align: left; margin-bottom: 20px;}
+.sms-subscribe__right .step1 .content .text-info, .sms-subscribe__right .step2 .content .text-info, .sms-subscribe__right .step3 .content .text-info {font-size: 15px; font-family: 'Titillium Web', sans-serif; text-align: left; margin-bottom: 7px;}
+.sms-subscribe__right .step1 .content .border-line, .sms-subscribe__right .step2 .content .border-line, .sms-subscribe__right .step3 .content .border-line {height: 35px; line-height:35px; vertical-align: middle; font-size: 14px; font-family: 'Titillium Web', sans-serif; text-align: left;border-bottom: 1px solid #9B9A9A;}
+.sms-subscribe__right .step1 .content .border-line .success, .sms-subscribe__right .step2 .content .border-line .success, .sms-subscribe__right .step3 .content .border-line .success {color: #1E943E;}
+.sms-subscribe__right .step1 .content .border-line .error, .sms-subscribe__right .step2 .content .border-line .error, .sms-subscribe__right .step3 .content .border-line .error {color: #CE4353;}
+.sms-subscribe__right .step2 .content .input-inline {width: 435px;}
+.sms-subscribe__right .step1 .content .input-inline input, .sms-subscribe__right .step2 .content .input-inline input {width: 300px; height: 32px; border:1px solid #999; padding: 5px 11px; margin-right: 7px; box-sizing: border-box;}
+.sms-subscribe__right .step1 .content .input-inline button, .sms-subscribe__right .step2 .content .input-inline button, .sms-subscribe__right .step3 .content .input-inline button {width: 125px; height: 32px; line-height: 32px; text-align: center; vertical-align: middle; background: #5C9FEA; color: #fff; text-transform: uppercase; font-size: 15px; font-family: 'Titillium Web', sans-serif; }
+.sms-subscribe__right .step1 .content .input-inline span {font-size: 15px; font-family: 'Titillium Web', sans-serif; line-height: 32px; margin-left: 7px; cursor:pointer; text-transform: uppercase; color: #707070; text-decoration: underline; vertical-align: middle;}
+.sms-subscribe__right .step1 .text-info, .sms-subscribe__right .step2 .text-info, .sms-subscribe__right .step3 .text-info {font-size: 15px; font-family: 'Titillium Web', sans-serif; text-align: left; margin-bottom: 7px; margin-top: 20px;}
+.sms-subscribe__right .step1 .text-info p, .sms-subscribe__right .step2 .text-info p, .sms-subscribe__right .step3 .text-info p{font-size: 13px; font-family: 'Titillium Web', sans-serif; text-align: left;}
+.sms-subscribe__right .step1 .text-info a, .sms-subscribe__right .step2 .text-info a, .sms-subscribe__right .step3 .text-info a{color: #5C9FEA; font-size: 13px; font-family: 'Titillium Web', sans-serif; text-align: left;}
+
+.button { display: inline-block; vertical-align: middle; width: 250px; height: 36px; border: 0; background: #1891de; color: #fff; font-size: 19px; line-height: 19px; text-align: center; cursor: pointer; }
+.button:disabled { opacity: 0.5; cursor: not-allowed; }
+.button.register-btn { background: #3C74E7; border-radius: 3px; color: #fff; font-size: 16px; font-family: 'Roboto', sans-serif; }
+
+.magicLink { display: inline-block; color: #585858; font-size: 14px; font-family: 'Roboto', sans-serif; text-decoration: underline; cursor: pointer; }

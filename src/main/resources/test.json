@@ -1,0 +1,21 @@
+{
+  "contents":[{
+    "originalImageUrl": "hoho",
+    "thumbnailUrl" :  "hihi",
+    "bookmarkId": 1,
+    "createdOn" : "2020-04-21T16:13:45.047"
+  },
+    {
+      "originalImageUrl": "hoho11111",
+      "thumbnailUrl" :  "hihi1111",
+      "bookmarkId": 11111,
+      "createdOn" : "2020-04-22T16:13:45.047"
+    },
+    {
+      "originalImageUrl": "hoho22222",
+      "thumbnailUrl" :  "hihi2222",
+      "bookmarkId": 22222,
+      "createdOn" : "2020-04-23T16:13:45.047"
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+spring:
+  profiles:
+    active: local
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+    static-path-pattern: /static/**
+    resources:
+      static-locations: classpath:/static/
+      add: mappings=true
+server:
+  port: 8070
+  tomcat:
+    max-threads: 250
+    min-spare-threads: 10
+    remote-ip-header: "X-Forwarded-For"
+  error:
+    include-exception: true
+    include-stacktrace: always
+  servlet:
+    cookie:
+      bookmarkCookieName: BOOKMARK_SESSION
+bookmark:
+  disableAuthenticate: false
+devtools:
+  livereload:
+    enabled: strue
+
+
+log:
+  config:
+    path: logs/local
+    filename: local_log
+logging:
+  level:
+    root: INFO
+proxy:
+  server:
+    request-id-header-name: X-Request-Id
+---
+spring:
+  profiles: local
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test;DB_CLOSE_DELAY=-1
+    #url: jdbc:h2:mem:testdb;
+    driver-class-name: org.h2.Driver
+    username: sa
+    passwrod:
+  jpa:
+    #show-sql: true
+    properties:
+      javax.persistence.query.timeout: 20000
+      hibernate:
+        show_sql: true
+        format_sql: true
+       # generate_statistics: true
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: H2
+  #  open-in-view: false
+  datasource-product:
+    url: jdbc:h2:tcp://localhost/~/test;DB_CLOSE_DELAY=-1
+    #url: jdbc:h2:mem:testdb;
+    driver-class-name: org.h2.Driver
+    username: sa
+    passwrod:
+  jpa-product:
+  #  show-sql: true
+    properties:
+      javax.persistence.query.timeout: 20000
+      hibernate:
+        format_sql: true
+        show_sql: true
+      #  generate_statistics: true
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: H2
+  #  open-in-view: false
+server:
+  port: 8070
+#  servlet:
+#    context-path: /api
+springboot:
+  version: 1.0.0
+
+my:
+  name: dongseung
+  age: 29
+  sex: male
+  driver-class-name: hoho!
+  hobby:
+    - workout
+    - dancing
+    - singing
+    - sports
+    - clothes
+    - coding!
+#fashionGoApiUrl: http://localhost:17301
+fashionGoApiUrl: http://10.210.16.205:17301
+cloud:
+  toast:
+    object-storage:
+      account: AUTH_7e2eaaa493ce4625a815481da0ec2e1a
+      tenant-id: 7e2eaaa493ce4625a815481da0ec2e1a
+      username: dl_nhnglobal_tc_service@nhnglobal.com
+      password: FG!@#123
+      auth-api-url: https://api-compute.cloud.toast.com/identity/v2.0/tokens
+      api-url: https://api-storage.cloud.toast.com/v1/
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    passwrod:
+    jpa:
+      show-sql: true
+      properties:
+        javax.persistence.query.timeout: 10000
+        hibernate:
+          format_sql: true
+          # generate_statistics: true
+          dialect: org.hibernate.dialect.H2Dialect
+      hibernate:
+        ddl-auto: update
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    #  open-in-view: false
+    jpa-product:
+      show-sql: true
+      properties:
+        javax.persistence.query.timeout: 10000
+        hibernate:
+          format_sql: true
+          #  generate_statistics: true
+          dialect: org.hibernate.dialect.H2Dialect
+      hibernate:
+        ddl-auto: create-drop
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    #  open-in-view: false
+fashionGoApiUrl: http://10.210.16.205:17301
+springboot:
+  version: 1.2.3(dev)
+my:
+  name: dongseung!
+  age: 27
+  sex: male
+  driver-class-name: haha-dev!
+  hobby:
+    - dev!workout
+    - dev!dancing
+    - dev!singing
+    - dev!sports
+    - dev!clothes
+    - dev!coding!
+

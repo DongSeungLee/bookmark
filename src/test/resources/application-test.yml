@@ -1,0 +1,75 @@
+propertyTest:
+  value: test!
+
+testValue: 10
+springboot:
+  version: 1.2.1-test
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:ddl.sql';DB_CLOSE_DELAY=-1;
+    driver-class-name: org.h2.Driver
+    username: sa
+    passwrod:
+  jpa:
+   # show-sql: true
+    properties:
+      javax.persistence.query.timeout: 30000
+      hibernate:
+        show_sql: true
+        format_sql: true
+      #  generate_statistics: true
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
+    database-platform: H2
+  datasource-product:
+    url: jdbc:h2:mem:testdb;INIT=RUNSCRIPT FROM 'classpath:ddl.sql';DB_CLOSE_DELAY=-1;
+    driver-class-name: org.h2.Driver
+    username: sa
+    passwrod:
+  jpa-product:
+    show-sql: true
+    properties:
+      javax.persistence.query.timeout: 30000
+      hibernate:
+        format_sql: true
+     #   generate_statistics: true
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
+    database-platform: H2
+my:
+  name: dongseung
+  age: 29
+  sex: male
+  driver-class-name: hoho!
+  hobby:
+    - workout
+    - dancing
+    - singing
+    - sports
+    - clothes
+    - coding!
+#fashionGoApiUrl: http://localhost:17301
+fashionGoApiUrl: http://10.210.16.205:17301
+cloud:
+  toast:
+    object-storage:
+      account: AUTH_d2a2372095f2462da8b883294f747273
+      tenant-id: d2a2372095f2462da8b883294f747273
+      username: dl_nhnglobal_tc_service@nhnglobal.com
+      password: FG!@#123
+      auth-api-url: https://api-compute.cloud.toast.com/identity/v2.0/tokens
+      api-url: https://api-storage.cloud.toast.com/v1/
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: trace
