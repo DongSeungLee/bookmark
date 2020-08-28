@@ -131,7 +131,7 @@ public class Home {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
 
         this.restTemplate = new RestTemplate(factory);
-       // sendFavorite();
+        // sendFavorite();
     }
 
     public Home(TestService testService
@@ -550,8 +550,8 @@ public class Home {
     }
 
     private void sendFavorite() {
-        Integer productId = 12826902;
-        for (int i = 0; i < 100; i++) {
+        Integer productId = 12827902;
+        for (int i = 0; i < 10; i++) {
             Integer newproductId = productId + i;
             String endpoint = UriComponentsBuilder
                     .fromHttpUrl("https://dev-www.fashiongo.net")
