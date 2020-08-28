@@ -43,6 +43,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -130,6 +131,7 @@ public class Home {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
 
         this.restTemplate = new RestTemplate(factory);
+       // sendFavorite();
     }
 
     public Home(TestService testService
@@ -179,6 +181,7 @@ public class Home {
         System.out.println("ChildParentEntity guid : " + entity.getGuid());
         System.out.println("ChildParentEntity parent : " + entity.getParent());
         this.tokenAuthenticationService = tokenAuthenticationService;
+
     }
 
     @GetMapping(value = "/hoho/{fileName}")
@@ -544,5 +547,34 @@ public class Home {
             log.warn("Algorithm error : {}", e.getMessage());
         }
         return r;
+    }
+
+    private void sendFavorite() {
+        Integer productId = 12826902;
+        for (int i = 0; i < 100; i++) {
+            Integer newproductId = productId + i;
+            String endpoint = UriComponentsBuilder
+                    .fromHttpUrl("https://dev-www.fashiongo.net")
+                    .path("/MyAccount/FavoriteItem/Add")
+                    .path("/{newproductId}")
+                    .queryParam("type", "GET")
+                    .queryParam("dataType", "json")
+                    .queryParam("contentType", "application/json")
+                    .queryParam("mimeType", "application/json")
+                    .queryParam("_", "1598597516128")
+                    .buildAndExpand(newproductId)
+                    .toString();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json");
+            headers.add("Cookie", "FG_LOGIN=FGUSER-953015263ZMMKZPURUY2ARELWIAMO;DEV_FG_SSO_SESSION=FGUSER-953015263ZMMKZPURUY2ARELWIAMO");
+            HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(endpoint, HttpMethod.GET, requestEntity,
+                    new ParameterizedTypeReference<String>() {
+                    });
+
+            System.out.println(response);
+        }
+
     }
 }
