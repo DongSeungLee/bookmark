@@ -138,7 +138,9 @@ public class ChildParentTest {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         if (tmp.isEmpty()) {
+
             return Collections.EMPTY_LIST;
+
         }
         tmp.addAll(flatMapAll(tmp));
         return tmp;
