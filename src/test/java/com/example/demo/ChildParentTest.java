@@ -120,15 +120,37 @@ public class ChildParentTest {
                         .name("name2221")
                         .build()
         );
-        c222.addChildren(
+        CategoryEntity c2222 = CategoryEntity.builder()
+                .id(2222)
+                .name("name2222")
+                .build();
+        c222.addChildren(c2222);
+        c2222.addChildren(
                 CategoryEntity.builder()
-                        .id(2222)
-                        .name("name2222")
+                        .id(22221)
+                        .name("name2222Final1")
+                        .build()
+        );
+        c2222.addChildren(
+                CategoryEntity.builder()
+                        .id(22222)
+                        .name("name2222Final2")
+                        .build()
+        );
+        c2222.addChildren(
+                CategoryEntity.builder()
+                        .id(22223)
+                        .name("name2222Final3")
+                        .build()
+        );
+        c2222.addChildren(
+                CategoryEntity.builder()
+                        .id(22224)
+                        .name("name2222Final4")
                         .build()
         );
 
         List<CategoryEntity> ret = flatMapAll(Arrays.asList(c1, c2));
-
         ret.stream().forEach(entity -> System.out.println(entity.getId()));
     }
 
@@ -138,9 +160,7 @@ public class ChildParentTest {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         if (tmp.isEmpty()) {
-
             return Collections.EMPTY_LIST;
-
         }
         tmp.addAll(flatMapAll(tmp));
         return tmp;
