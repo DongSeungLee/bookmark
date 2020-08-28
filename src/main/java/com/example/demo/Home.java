@@ -112,7 +112,8 @@ public class Home {
 
     private final MyContextContainer myContextContainer;
 
-    private final TokenAuthenticationService tokenAuthenticationService ;
+    private final TokenAuthenticationService tokenAuthenticationService;
+
     @PostConstruct
     public void init() {
         RequestConfig requestConfig = RequestConfig.custom()
@@ -511,6 +512,7 @@ public class Home {
         }
         return this.verification;
     }
+
     // String으로 보내려면 그냥 ""없이 request body에 넣어야 한다.
     @PostMapping("/JWT")
     @ResponseBody
@@ -532,15 +534,14 @@ public class Home {
             String username = claims.get("username").asString();
             String password = claims.get("password").asString();
             String attr = claims.get("attr").asString();
-            log.info("decode jwt username : {}",username);
-            log.info("decode jwt password : {}",password);
-            log.info("decode jwt attr : {}",attr);
+            log.info("decode jwt username : {}", username);
+            log.info("decode jwt password : {}", password);
+            log.info("decode jwt attr : {}", attr);
             r.setSuccess(true);
         } catch (UnsupportedEncodingException e) {
-            log.warn("getJWT error : {}",e.getMessage());
-        }
-        catch(SignatureVerificationException e){
-            log.warn("Algorithm error : {}",e.getMessage());
+            log.warn("getJWT error : {}", e.getMessage());
+        } catch (SignatureVerificationException e) {
+            log.warn("Algorithm error : {}", e.getMessage());
         }
         return r;
     }

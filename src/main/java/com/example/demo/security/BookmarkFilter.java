@@ -23,8 +23,9 @@ import java.io.UnsupportedEncodingException;
 public class BookmarkFilter extends AbstractAuthenticationProcessingFilter {
 
     private TokenAuthenticationService tokenAuthenticationService;
+
     public BookmarkFilter(String url, AuthenticationManager authenticationManager,
-                          TokenAuthenticationService tokenAuthenticationService){
+                          TokenAuthenticationService tokenAuthenticationService) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authenticationManager);
         this.tokenAuthenticationService = tokenAuthenticationService;
@@ -36,8 +37,9 @@ public class BookmarkFilter extends AbstractAuthenticationProcessingFilter {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword());
         return getAuthenticationManager().authenticate(token);
     }
+
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws UnsupportedEncodingException {
-        tokenAuthenticationService.addAuthentication(response,authentication);
+        tokenAuthenticationService.addAuthentication(response, authentication);
     }
 }
