@@ -22,7 +22,6 @@ import com.example.demo.member.repository.OrderService;
 import com.example.demo.model.*;
 import com.example.demo.product.ProductService;
 import com.example.demo.request.CreateMemberRequest;
-import com.example.demo.security.JwtRequest;
 import com.example.demo.security.TokenAuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.DocumentException;
@@ -512,10 +511,10 @@ public class Home {
         }
         return this.verification;
     }
-
+    // String으로 보내려면 그냥 ""없이 request body에 넣어야 한다.
     @PostMapping("/JWT")
     @ResponseBody
-    public JsonResponse getJWT(@RequestBody JwtRequest request) {
+    public JsonResponse getJWT(@RequestBody String request) {
 
         JsonResponse r = JsonResponse.builder()
                 .success(false)
@@ -526,14 +525,16 @@ public class Home {
         // 계속해서 algorithm이 맞지 않는다고 error 출력
         // algorithm을 아예 동일하게 맞추니 되었다.....
         try {
-            String token = tokenAuthenticationService.addAuthentication1();
             DecodedJWT verified = verification()
                     .build()
-                    .verify(request.getStr());
+                    .verify(request);
             Map<String, Claim> claims = verified.getClaims();
             String username = claims.get("username").asString();
             String password = claims.get("password").asString();
             String attr = claims.get("attr").asString();
+            log.info("decode jwt username : {}",username);
+            log.info("decode jwt password : {}",password);
+            log.info("decode jwt attr : {}",attr);
             r.setSuccess(true);
         } catch (UnsupportedEncodingException e) {
             log.warn("getJWT error : {}",e.getMessage());
