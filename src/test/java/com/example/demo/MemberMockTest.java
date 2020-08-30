@@ -3,15 +3,12 @@ package com.example.demo;
 import com.example.demo.member.MemberService;
 import com.example.demo.member.model.MemberEntity;
 import com.example.demo.member.repository.MemberRepository;
-import com.example.demo.member.repository.TeamRepository;
 import com.example.demo.request.CreateMemberRequest;
-import com.example.demo.swift.SwiftApiCallFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -27,10 +24,6 @@ import static org.mockito.Mockito.when;
 public class MemberMockTest {
     @Mock
     private MemberRepository memberRepository;
-    @Mock
-    private TeamRepository teamRepository;
-    @Autowired
-    private SwiftApiCallFactory factory;
     private List<Integer> ids;
     private List<MemberEntity> members;
     @InjectMocks
