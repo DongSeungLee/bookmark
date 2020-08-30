@@ -20,20 +20,18 @@ public class MemberEntity {
     @Column(name = "name")
     @Setter
     private String name;
+    
 
     public MemberEntity() {
 
     }
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")//,insertable = false,updatable = false)
     private TeamEntity teamEntity;
-
     public void setTeamEntity(TeamEntity teamEntity) {
         this.teamEntity = teamEntity;
         teamEntity.getMembers().add(this);
     }
-
     //    @Builder
     public MemberEntity(String name) {
         this.name = name;
