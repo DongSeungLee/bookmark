@@ -42,13 +42,11 @@ public class MemberMockTest {
                 .phoneNumber("111")
                 .build();
     }
-
     @Test
     public void test() {
         when(memberRepository.findAllById(ids)).thenReturn(members);
         memberService.findMembers(ids);
     }
-
     @Test
     public void createMemberEntityTest() {
         MemberEntity entity = CreateMemberRequest.createMemberEntity(request);
