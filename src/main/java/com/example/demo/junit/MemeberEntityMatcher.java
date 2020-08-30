@@ -12,6 +12,7 @@ public class MemeberEntityMatcher extends TypeSafeMatcher<MemberEntity> {
     public MemeberEntityMatcher(MemberEntity entity) {
         this.entity = entity;
     }
+
     @Override
     protected boolean matchesSafely(MemberEntity item) {
         if (Objects.isNull(item))
@@ -20,10 +21,12 @@ public class MemeberEntityMatcher extends TypeSafeMatcher<MemberEntity> {
                 && entity.getName().equals(item.getName());
 
     }
+
     @Override
     public void describeTo(Description description) {
         description.appendText(String.format("MemberEntity id, name are %d, %s", entity.getMemberId(), entity.getName()));
     }
+
     public static <T> Matcher<MemberEntity> MemeberEntityMatcher(MemberEntity entity) {
         return new MemeberEntityMatcher(entity);
     }

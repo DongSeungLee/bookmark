@@ -24,21 +24,23 @@ public class MemberEntity {
     public MemberEntity() {
 
     }
-    @ManyToOne(fetch=FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")//,insertable = false,updatable = false)
     private TeamEntity teamEntity;
 
-    public void setTeamEntity(TeamEntity teamEntity){
+    public void setTeamEntity(TeamEntity teamEntity) {
         this.teamEntity = teamEntity;
         teamEntity.getMembers().add(this);
     }
 
-//    @Builder
+    //    @Builder
     public MemberEntity(String name) {
         this.name = name;
     }
+
     @Builder
-    public MemberEntity(Integer memberId,String name,Integer teamId){
+    public MemberEntity(Integer memberId, String name, Integer teamId) {
         this.memberId = memberId;
         this.name = name;
 
