@@ -134,7 +134,6 @@ public class Home {
         // sendFavorite();
     }
 
-
     public Home(TestService testService
             , Hoho hoho123
             , @Qualifier(value = "dongseung") DongSeung dongSeung,
@@ -569,11 +568,9 @@ public class Home {
             headers.add("Content-Type", "application/json");
             headers.add("Cookie", "FG_LOGIN=FGUSER-953015263ZMMKZPURUY2ARELWIAMO;DEV_FG_SSO_SESSION=FGUSER-953015263ZMMKZPURUY2ARELWIAMO");
             HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
-
             ResponseEntity<String> response = restTemplate.exchange(endpoint, HttpMethod.GET, requestEntity,
                     new ParameterizedTypeReference<String>() {
                     });
-
             System.out.println(response);
         }
 
