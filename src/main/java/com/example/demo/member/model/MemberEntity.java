@@ -10,17 +10,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Member")
 @Getter
+@Setter
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Member_id")
-
     private Integer memberId;
 
     @Column(name = "name")
-    @Setter
     private String name;
-    
 
     public MemberEntity() {
 
