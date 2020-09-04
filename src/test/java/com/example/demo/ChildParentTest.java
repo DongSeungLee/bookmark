@@ -165,4 +165,10 @@ public class ChildParentTest {
         tmp.addAll(flatMapAll(tmp));
         return tmp;
     }
+    @Test
+    public void testMap(){
+        Map<Integer,String>map = new HashMap<>();
+        map.put(1,"hoho");
+        System.out.println(map.get(2));
+    }
 }

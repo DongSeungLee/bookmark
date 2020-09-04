@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,5 +55,19 @@ public class MemberMockTest {
         when(memberRepository.save(entity)).thenReturn(entity);
         MemberEntity expected = memberService.createMember(request);
         assertThat(entity, MemeberEntityMatcher(expected));
+    }
+    @Test(expected = IOException.class)
+    public void testInputStreamIOException() throws IOException {
+        InputStream stream = createStreamThrowingErrorWhenRead();
+        stream.read();
+    }
+
+    private InputStream createStreamThrowingErrorWhenRead(){
+        return new InputStream() {
+            @Override
+            public int read() throws IOException {
+                throw new IOException();
+            }
+        };
     }
 }

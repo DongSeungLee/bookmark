@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toMap;
+
 @Slf4j
 public class InputStreamTest {
     private File dir;
@@ -65,15 +66,22 @@ public class InputStreamTest {
 //        System.out.println(absolutePath);
 //
 //        assertThat(absolutePath.endsWith("src/test/resources"));
-        Path resourceDirectory = Paths.get("src","test","resources","hoho1.txt");
+        Path resourceDirectory = Paths.get("src","test","resources","hoho2.txt");
         File file = resourceDirectory.toFile();
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-        if(file.isFile() && file.canWrite()){
-            bufferedWriter.write("hohoho");
-            bufferedWriter.close();
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))){
+            if(file.isFile() && file.canWrite()){
+                bufferedWriter.append("hohoho!!!!!!!!!!!!!!!\n");
+                bufferedWriter.append("hohoho");
+                bufferedWriter.close();
+            }
         }
-        final byte[] buffer = new byte[4];
-        FileInputStream inputStream = new FileInputStream(file);
+        catch(IOException e){
+            // 알아서 bufferedWriter.close를 해주기 때문에 상관은 없다.
+        }
+
+
+        final byte[] buffer = "hohooutput1.txt".getBytes();
+        InputStream inputStream = new ByteArrayInputStream(buffer);
         FileOutputStream outputStream = new FileOutputStream(Paths.get("src","test","resources","hohooutput1.txt").toString());
         FileCopyUtils.copy(inputStream,outputStream);
         //        int i=0,remaining = 10;
@@ -92,6 +100,33 @@ public class InputStreamTest {
 //            outputStream.write(buffer,0,i);
 //        }
         System.out.println(Paths.get("hoho","hihi").toString());
+    }
+    @Test
+    public void testByteArrayInputStreamToOutputStream() throws IOException {
+        final byte[] buffer = "hohooutput1.txt".getBytes();
+        InputStream inputStream = new ByteArrayInputStream(buffer);
+        FileOutputStream outputStream = new FileOutputStream(Paths.get("src","test","resources","hohooutput1.txt").toString());
+        FileCopyUtils.copy(inputStream,outputStream);
+    }
+    // FileOutputStream constructor cannot be overridden
+    // file isInvalid() is final boolean -> cannot be overridden
+    // so add new notFoundFileClass which extends FileOutputStream customizing notFoundClassException to throw FileNotFoundException deliberately
+    @Test(expected = FileNotFoundException.class)
+    public void testFileNotFoundException() throws IOException {
+        final byte[] buffer = "hohooutput1.txt".getBytes();
+        InputStream inputStream = new ByteArrayInputStream(buffer);
+        FileOutputStream outputStream = new notFoundFileClass();
+        ((notFoundFileClass)outputStream).notFoundClassException();
+        FileCopyUtils.copy(inputStream,outputStream);
+    }
+
+    class notFoundFileClass extends FileOutputStream{
+            public notFoundFileClass() throws FileNotFoundException {
+                super("notFoundFile");
+            }
+            public void notFoundClassException() throws FileNotFoundException {
+                throw new FileNotFoundException("notFoundFileClass");
+            }
     }
     @Test
     public void testEnum() throws IllegalAccessException, InstantiationException {
