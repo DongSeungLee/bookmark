@@ -21,6 +21,7 @@ public class CreateMemberRequest {
 
     public static MemberEntity createMemberEntity(CreateMemberRequest request){
         return MemberEntity.builder()
+                .memberId(request.getMemberId())
                 .name(request.getName())
                 .build();
     }

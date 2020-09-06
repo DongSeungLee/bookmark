@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Member")
@@ -35,10 +36,24 @@ public class MemberEntity {
         this.name = name;
     }
 
+    // alt + insert => memberId is the primary key and only descriminator!
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberEntity that = (MemberEntity) o;
+        return Objects.equals(memberId, that.memberId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberId, name, teamEntity);
+    }
+
     @Builder
     public MemberEntity(Integer memberId, String name, Integer teamId) {
         this.memberId = memberId;
         this.name = name;
-
     }
+
 }

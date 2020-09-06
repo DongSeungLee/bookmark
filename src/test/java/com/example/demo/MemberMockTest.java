@@ -19,6 +19,7 @@ import java.util.List;
 
 import static com.example.demo.junit.MemeberEntityMatcher.MemeberEntityMatcher;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -48,6 +49,8 @@ public class MemberMockTest {
     public void test() {
         when(memberRepository.findAllById(ids)).thenReturn(members);
         memberService.findMembers(ids);
+        // List의 equals는 모든 element를 iteration하면서 비교한다.
+        verify(memberRepository).findAllById(ids);
     }
     @Test
     public void createMemberEntityTest() {
@@ -55,6 +58,7 @@ public class MemberMockTest {
         when(memberRepository.save(entity)).thenReturn(entity);
         MemberEntity expected = memberService.createMember(request);
         assertThat(entity, MemeberEntityMatcher(expected));
+        verify(memberRepository).save(entity);
     }
     @Test(expected = IOException.class)
     public void testInputStreamIOException() throws IOException {
