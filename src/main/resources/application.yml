@@ -53,7 +53,6 @@ spring:
     properties:
       javax.persistence.query.timeout: 20000
       hibernate:
-        show_sql: true
         format_sql: true
        # generate_statistics: true
         dialect: org.hibernate.dialect.H2Dialect
