@@ -48,6 +48,7 @@ public class DemoApplication {
             }
         });
         // Inter is Functional Interface which contains toMessage method only!
+        // then can i squash all the commits before?
         System.out.print(inter.toMessage());
     }
 
