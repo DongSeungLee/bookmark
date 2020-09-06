@@ -47,9 +47,8 @@ public class DemoApplication {
                         , args);
             }
         });
+        // Inter is Functional Interface which contains toMessage method only!
         System.out.print(inter.toMessage());
-
-
     }
 
 
