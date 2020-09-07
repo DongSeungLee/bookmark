@@ -7,6 +7,7 @@ import com.example.demo.member.repository.TeamRepository;
 import com.example.demo.request.CreateMemberRequest;
 import com.example.demo.swift.SwiftApiCallFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,6 +19,7 @@ import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -26,15 +28,17 @@ public class MemberService {
     private final TeamRepository teamRepository;
     private final SwiftApiCallFactory factory;
     private final RedisTemplate redisTemplate;
-
+    private final CacheManager cacheManager;
     public MemberService(SwiftApiCallFactory factory,
                          MemberRepository memberRepository,
                          TeamRepository teamRepository,
-                         RedisTemplate redisTemplate) {
+                         RedisTemplate redisTemplate,
+                         CacheManager cacheManager) {
         this.factory = factory;
         this.memberRepository = memberRepository;
         this.teamRepository = teamRepository;
         this.redisTemplate = redisTemplate;
+        this.cacheManager = cacheManager;
     }
 
     @Transactional(value = "userTransactionManager")
@@ -86,12 +90,14 @@ public class MemberService {
     public List<MemberEntity> getAllMembers() {
         log.info("getAllMembers is cached!");
         List<MemberEntity> ret = memberRepository.findAllEntity();
-        redisTemplate.opsForValue().set("members", ret);
+        redisTemplate.opsForValue().set("members", ret, 5L, TimeUnit.SECONDS);
         return ret;
     }
 
-    @CacheEvict(value = "deleteAllMembers")
-    public void deleteAllMembers() {
-
+    @CacheEvict(value = "getAllMembers")
+    public void evictMembers() {
+        cacheManager.getCache("getAllMembers").evict("members");
+        return;
     }
+
 }

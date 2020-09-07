@@ -581,4 +581,12 @@ public class Home {
         jsonResponse.setSuccess(true);
         return jsonResponse;
     }
+    @GetMapping("/evictMembers")
+    @ResponseBody
+    public JsonResponse evictMembers(){
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setSuccess(true);
+        memberService.evictMembers();
+        return jsonResponse;
+    }
 }

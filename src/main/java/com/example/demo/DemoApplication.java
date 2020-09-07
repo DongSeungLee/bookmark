@@ -10,6 +10,7 @@ import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartResolver;
@@ -35,10 +36,10 @@ public class DemoApplication {
     private final static String QUEUE_NAME = "hello";
 
     public static void main(String[] args) throws IOException, TimeoutException {
-        SpringApplication springApplication = new SpringApplication(DemoApplication.class);
+        SpringApplication springApplication = new SpringApplication(DemoApplication.class, RedisCacheConfiguration.class);
         springApplication.addListeners(new ApplicationPidFileWriter());
         springApplication.run(args);
-//        SpringApplication.run(RedisCacheConfiguration.class,args);
+
         // what is classLoader, and Class<?>( what is this?) Class<?>[]{Integer.class}는 말 그대로 Integer.Class를 원소를 갖는 하나의 Class array라는 것인가?
         Inter inter = (Inter) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{Inter.class}, new InvocationHandler() {
             @Override

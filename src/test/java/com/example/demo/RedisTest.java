@@ -38,6 +38,6 @@ public class RedisTest {
     }
     @After
     public void evictCache(){
-        memberService.deleteAllMembers();
+        memberService.evictMembers();
     }
 }

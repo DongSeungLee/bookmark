@@ -14,7 +14,7 @@ public class RedisConfig{
     public JedisPoolConfig jedisPoolConfig(){
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         // 10 seconds;
-        jedisPoolConfig.setMinEvictableIdleTimeMillis(10000L);
+        jedisPoolConfig.setMinEvictableIdleTimeMillis(100000L);
         return jedisPoolConfig;
     }
     @Bean("JedisConnectionFactory")
