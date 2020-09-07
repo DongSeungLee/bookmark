@@ -33,6 +33,7 @@ public class RedisTest {
         List<MemberEntity> ret = memberService.getAllMembers();
         System.out.println("-------------------------------");
         List<MemberEntity> ret1 = memberService.getAllMembers();
+        List<MemberEntity> ret2 = memberService.getAllMembers();
         assertThat(ret,equalTo(ret1));
     }
     @After

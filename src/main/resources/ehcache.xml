@@ -9,6 +9,7 @@
 
     <cache name="method"
            maxEntriesLocalHeap="100"
+
            maxEntriesLocalDisk="1000"
            eternal="false"
            timeToIdleSeconds="1"
@@ -18,6 +19,16 @@
         <persistence strategy="localTempSwap" />
     </cache>
     <cache name="getAllMembers"
+           maxEntriesLocalHeap="100"
+           maxEntriesLocalDisk="1000"
+           eternal="false"
+           timeToIdleSeconds="3"
+           timeToLiveSeconds="3"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+        <persistence strategy="localTempSwap" />
+    </cache>
+    <cache name="deleteAllMembers"
            maxEntriesLocalHeap="100"
            maxEntriesLocalDisk="1000"
            eternal="false"
