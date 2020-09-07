@@ -91,7 +91,7 @@ public class MemberService {
     public List<MemberEntity> getAllMembers() {
         log.info("getAllMembers is cached!");
         List<MemberEntity> ret = memberRepository.findAllEntity();
-        redisTemplate.opsForValue().set("members", ret, 5L, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("members", ret, 30L, TimeUnit.SECONDS);
         return ret;
     }
 

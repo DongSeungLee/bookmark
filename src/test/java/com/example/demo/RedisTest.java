@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -24,7 +25,7 @@ public class RedisTest {
     @Test
     public void redisTest(){
         String key = "key:springboot";
-        redisTemplate.opsForValue().set(key,"hoho");
+        redisTemplate.opsForValue().set(key,"hoho",30L, TimeUnit.SECONDS);
         String value = (String)redisTemplate.opsForValue().get(key);
         assertThat(value, equalTo("hoho"));
     }
