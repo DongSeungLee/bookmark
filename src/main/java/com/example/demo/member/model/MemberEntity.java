@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Member")
 @Getter
 @Setter
-public class MemberEntity {
+public class MemberEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Member_id")
@@ -24,13 +25,16 @@ public class MemberEntity {
     public MemberEntity() {
 
     }
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")//,insertable = false,updatable = false)
     private TeamEntity teamEntity;
+
     public void setTeamEntity(TeamEntity teamEntity) {
         this.teamEntity = teamEntity;
 //        teamEntity.getMembers().add(this);
     }
+
     //    @Builder
     public MemberEntity(String name) {
         this.name = name;
