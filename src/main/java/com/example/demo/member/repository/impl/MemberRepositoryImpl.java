@@ -101,7 +101,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         return new JPAQuery<>(entityManager)
                 .select(M)
                 .from(M)
-                .innerJoin(M.teamEntity,T).fetchJoin()
+                .innerJoin(M.teamEntity, T).fetchJoin()
                 .fetch();
     }
 

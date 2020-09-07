@@ -29,6 +29,7 @@ public class MemberService {
     private final SwiftApiCallFactory factory;
     private final RedisTemplate redisTemplate;
     private final CacheManager cacheManager;
+
     public MemberService(SwiftApiCallFactory factory,
                          MemberRepository memberRepository,
                          TeamRepository teamRepository,

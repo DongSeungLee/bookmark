@@ -515,6 +515,7 @@ public class Home {
         }
         return this.verification;
     }
+
     // String으로 보내려면 그냥 ""없이 request body에 넣어야 한다.
     @PostMapping("/JWT")
     @ResponseBody
@@ -547,6 +548,7 @@ public class Home {
         }
         return r;
     }
+
     private void sendFavorite() {
         Integer productId = 12827902;
         for (int i = 0; i < 10; i++) {
@@ -575,15 +577,16 @@ public class Home {
 
     @GetMapping("/getMembers")
     @ResponseBody
-    public JsonResponse getMembers(){
+    public JsonResponse getMembers() {
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setData(memberService.getAllMembers());
         jsonResponse.setSuccess(true);
         return jsonResponse;
     }
+
     @GetMapping("/evictMembers")
     @ResponseBody
-    public JsonResponse evictMembers(){
+    public JsonResponse evictMembers() {
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccess(true);
         memberService.evictMembers();
