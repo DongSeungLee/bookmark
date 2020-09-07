@@ -24,12 +24,12 @@ public class MemberEntity {
     public MemberEntity() {
 
     }
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")//,insertable = false,updatable = false)
     private TeamEntity teamEntity;
     public void setTeamEntity(TeamEntity teamEntity) {
         this.teamEntity = teamEntity;
-        teamEntity.getMembers().add(this);
+//        teamEntity.getMembers().add(this);
     }
     //    @Builder
     public MemberEntity(String name) {

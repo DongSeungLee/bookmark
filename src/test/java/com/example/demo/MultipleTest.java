@@ -27,15 +27,13 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static com.example.demo.product.model.QProductEntity.productEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
-import static com.example.demo.product.model.QProductEntity.productEntity;
-import static com.example.demo.member.model.QMemberEntity.memberEntity;
 
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -167,27 +165,21 @@ public class MultipleTest {
 
         member1.setTeamEntity(team1);
         member2.setTeamEntity(team1);
-        team1.getMembers().add(member1);
-        team1.getMembers().add(member2);
+
 
         memberRepository.save(member1);
         memberRepository.save(member2);
         teamRepository.save(team1);
         TeamEntity ret = teamRepository.findById(team1.getTeamId())
                 .orElseThrow(() -> new IllegalArgumentException("HOHO"));
-        ret.getMembers().forEach(entity -> System.out.println(entity.getName()));
+
         MemberEntity m1 = memberRepository.findById(member1.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("hoho"));
         MemberEntity m2 = memberRepository.findById(member1.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("hehe"));
     }
 
-    @Test
-    public void testInitial() {
-        TeamEntity team1 = memberService.initial();
-        team1.getMembers().forEach(entity -> assertThat(entity.getName().substring(0, 2)).isEqualTo("DS"));
-        assertThat(team1.getMembers().size()).isEqualTo(4);
-    }
+
 
     @Test
     @Transactional("productTransactionManager")

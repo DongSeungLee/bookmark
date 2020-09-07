@@ -29,12 +29,12 @@ public class CacheTest {
         fieldExam.setF1(1);
         fieldExam.setF2(2);
         Cache cache = cacheManager.getCache("method");
-        cache.put("title","ehcache testing......");
+        cache.put("title","ehcache testing--------------------------");
         System.out.println(cache.get("title").get());
-        System.out.println("hoho!!!!!!!"+cacheManager.getCache("method"));
+        System.out.println("hoho!!!!!!!"+cacheManager.getCache("method").get("title").get());
         Thread.sleep(21*1000);
         System.out.println("hoho"+cacheManager.getCache("method"));
-        System.out.println(cache.get("title"));
+        System.out.println("after thread sleep:"+cache.get("title"));
 
     }
 

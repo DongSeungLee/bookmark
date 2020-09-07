@@ -15,4 +15,6 @@ public interface MemberRepositoryCustom {
     List<MemberDto> findByName(String name);
 
     List<OrderDto>findOrderByMemeberId(Integer memberId, OrderType orderType);
+
+    List<MemberEntity> findAllEntity();
 }

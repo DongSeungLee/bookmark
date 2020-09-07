@@ -94,5 +94,15 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         //.addJoinFlag(" with(index =NCI_id_type_createdOn)", JoinFlag.Position.BEFORE_CONDITION)
     }
 
+    @Override
+    public List<MemberEntity> findAllEntity() {
+        QMemberEntity M = new QMemberEntity("M");
+        QTeamEntity T = new QTeamEntity("T");
+        return new JPAQuery<>(entityManager)
+                .select(M)
+                .from(M)
+                .innerJoin(M.teamEntity,T).fetchJoin()
+                .fetch();
+    }
 
 }

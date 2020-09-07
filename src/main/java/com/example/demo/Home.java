@@ -571,6 +571,14 @@ public class Home {
                     });
             System.out.println(response);
         }
+    }
 
+    @GetMapping("/getMembers")
+    @ResponseBody
+    public JsonResponse getMembers(){
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setData(memberService.getAllMembers());
+        jsonResponse.setSuccess(true);
+        return jsonResponse;
     }
 }

@@ -38,6 +38,7 @@ public class DemoApplication {
         SpringApplication springApplication = new SpringApplication(DemoApplication.class);
         springApplication.addListeners(new ApplicationPidFileWriter());
         springApplication.run(args);
+//        SpringApplication.run(RedisCacheConfiguration.class,args);
         // what is classLoader, and Class<?>( what is this?) Class<?>[]{Integer.class}는 말 그대로 Integer.Class를 원소를 갖는 하나의 Class array라는 것인가?
         Inter inter = (Inter) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{Inter.class}, new InvocationHandler() {
             @Override
