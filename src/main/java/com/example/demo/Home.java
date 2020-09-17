@@ -131,7 +131,7 @@ public class Home {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
 
         this.restTemplate = new RestTemplate(factory);
-        // sendFavorite();
+        memberService.findAllEntityById(1);
     }
 
     public Home(TestService testService

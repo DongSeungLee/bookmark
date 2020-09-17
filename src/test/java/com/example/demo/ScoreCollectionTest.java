@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import sun.invoke.empty.Empty;
+
 
 public class ScoreCollectionTest {
     @Rule

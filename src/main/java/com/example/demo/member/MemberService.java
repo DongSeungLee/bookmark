@@ -1,5 +1,6 @@
 package com.example.demo.member;
 
+import com.example.demo.member.model.AllDto;
 import com.example.demo.member.model.MemberEntity;
 import com.example.demo.member.model.TeamEntity;
 import com.example.demo.member.repository.MemberRepository;
@@ -50,10 +51,7 @@ public class MemberService {
         MemberEntity m4 = MemberEntity.builder().name("DS4").build();
         TeamEntity t1 = TeamEntity.builder().name("T1").build();
         teamRepository.save(t1);
-        m1.setTeamEntity(t1);
-        m2.setTeamEntity(t1);
-        m3.setTeamEntity(t1);
-        m4.setTeamEntity(t1);
+
         log.info("MemberService initial : {}", TransactionSynchronizationManager.isActualTransactionActive());
         memberRepository.save(m1);
         memberRepository.save(m2);
@@ -101,4 +99,7 @@ public class MemberService {
         return;
     }
 
+    public AllDto findAllEntityById(Integer id){
+        return memberRepository.findAllEntityById(id);
+    }
 }

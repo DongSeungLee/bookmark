@@ -1,5 +1,6 @@
 package com.example.demo.member.repository;
 
+import com.example.demo.member.model.AllDto;
 import com.example.demo.member.model.MemberDto;
 import com.example.demo.member.model.MemberEntity;
 import com.example.demo.member.model.OrderDto;
@@ -17,4 +18,6 @@ public interface MemberRepositoryCustom {
     List<OrderDto>findOrderByMemeberId(Integer memberId, OrderType orderType);
 
     List<MemberEntity> findAllEntity();
+
+    AllDto findAllEntityById(Integer memberId);
 }

@@ -32,7 +32,6 @@ public class MemberEntity implements Serializable {
 
     public void setTeamEntity(TeamEntity teamEntity) {
         this.teamEntity = teamEntity;
-//        teamEntity.getMembers().add(this);
     }
 
     //    @Builder
