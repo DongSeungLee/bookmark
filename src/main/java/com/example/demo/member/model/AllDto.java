@@ -17,9 +17,11 @@ public class AllDto {
     private String personName;
     private Integer productId;
     private String productName;
+    private Double price;
     @Builder
     public AllDto(Integer memberId,String membername, Integer bookId,String bookName,
-                  Integer personId,String personname,Integer productId, String productName){
+                  Integer personId,String personname,Integer productId, String productName,
+                  Double price){
         this.memberId = memberId;
         this.memberName = membername;
         this.bookId = bookId;
@@ -28,5 +30,6 @@ public class AllDto {
         this.personName = personname;
         this.productId = productId;
         this.productName = productName;
+        this.price = price;
     }
 }

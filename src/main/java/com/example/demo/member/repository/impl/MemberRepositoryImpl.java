@@ -3,7 +3,6 @@ package com.example.demo.member.repository.impl;
 import com.example.demo.JPA.MSSQLServer2012Templates;
 import com.example.demo.book.model.QBookEntity;
 import com.example.demo.book.model.QPerson;
-import com.example.demo.member.H2SQLServerTemplate;
 import com.example.demo.member.model.AllDto;
 import com.example.demo.member.model.MemberDto;
 import com.example.demo.member.model.MemberEntity;
@@ -13,11 +12,12 @@ import com.example.demo.member.model.QMemberEntity;
 import com.example.demo.member.model.QOrderEntity;
 import com.example.demo.member.model.QTeamEntity;
 import com.example.demo.member.repository.MemberRepositoryCustom;
-import com.example.demo.product.model.ProductEntity;
 import com.example.demo.product.model.QProductEntity;
+import com.querydsl.core.JoinFlag;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.NumberTemplate;
 import com.querydsl.core.types.dsl.SimplePath;
 import com.querydsl.core.types.dsl.SimpleTemplate;
 import com.querydsl.core.types.dsl.StringPath;
@@ -25,10 +25,6 @@ import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.sql.JPASQLQuery;
 import com.querydsl.sql.H2Templates;
-import com.querydsl.sql.HSQLDBTemplates;
-import com.querydsl.sql.MySQLTemplates;
-import com.querydsl.sql.OracleTemplates;
-import com.querydsl.sql.SQLTemplates;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -37,6 +33,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.example.demo.member.model.QMemberEntity.memberEntity;
+import static com.querydsl.core.types.dsl.Expressions.cases;
+import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static com.querydsl.core.types.dsl.Expressions.simpleTemplate;
 import static com.querydsl.core.types.dsl.Expressions.stringTemplate;
 
@@ -47,9 +45,14 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
     EntityManager entityManager;
 
     private static final String ISNULL_TEMPLATE = "ISNULL({0},{1})";
+    private static final String MAX_TEMPLATE = "MAX({0},{1})";
 
     private <T> SimpleTemplate<T> isnull(Class<? extends T> cl, Object arg1, Object arg2) {
         return simpleTemplate(cl, ISNULL_TEMPLATE, arg1, arg2);
+    }
+
+    private <T> SimpleTemplate<T> max(Class<? extends T> cl, Object arg1, Object arg2) {
+        return simpleTemplate(cl, MAX_TEMPLATE, arg1, arg2);
     }
 
     private StringTemplate isnullStr(Object arg1, Object arg2) {
@@ -151,18 +154,21 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         QBookEntity B = new QBookEntity("B");
         QPerson P = new QPerson("P");
         QTeamEntity T = new QTeamEntity("T");
-
+        NumberTemplate<Double> DOUBLE_TEN = numberTemplate(Double.class, "20.0");
         jpasqlQuery.select(
                 Projections.constructor(
                         AllDto.class,
-                        M.memberId.as("memberId"),
-                        M.name.as("memberName"),
+                        isnull(Integer.class, M.memberId, P.id).as("memberId"),
+                        isnull(String.class, M.name, P.name).as("memberName"),
                         B.bookId.as("bookId"),
                         B.name.as("bookName"),
                         P.id.as("personId"),
                         P.name.as("personName"),
                         id.as("productId"),
-                        name.as("productName")
+                        name.as("productName"),
+                        cases().when(price.goe(DOUBLE_TEN)).then(price)
+                                .otherwise(DOUBLE_TEN)
+                       // max(Double.class,price,DOUBLE_TEN)
                 )
         ).from(V(mid), product)
                 //.leftJoin(M.teamEntity,T)//.on(id.eq(M.memberId))
@@ -170,8 +176,11 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                 .leftJoin(M).on(id.eq(M.memberId))
                 .leftJoin(T).on(id.eq(T.teamId))
                 .leftJoin(P).on(id.eq(P.id));
+        // H2에는 index를 적용시키는 것이 없는 것으로 파악!
+    //.addJoinFlag(" with(index = NCI_ID_NAME)", JoinFlag.Position.END);
 
-        return jpasqlQuery.fetchOne();
+        AllDto ret = jpasqlQuery.fetchOne();
+        return ret;
     }
 
     private JPASQLQuery V(Integer mid) {
@@ -179,7 +188,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         QProductEntity P = new QProductEntity("P");
         QMemberEntity M = new QMemberEntity("M");
         jpasqlQuery
-                .select(P.id,P.name,P.price)
+                .select(P.id, P.name, P.price)
                 .from(P)
                 .where(P.id.eq(mid));
         JPASQLQuery jpasqlQuery1 = new JPASQLQuery(entityManager, new H2Templates());
