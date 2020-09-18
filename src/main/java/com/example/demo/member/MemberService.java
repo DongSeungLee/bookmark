@@ -1,5 +1,6 @@
 package com.example.demo.member;
 
+import com.example.demo.MyRedisTemplate;
 import com.example.demo.member.model.AllDto;
 import com.example.demo.member.model.MemberEntity;
 import com.example.demo.member.model.TeamEntity;
@@ -28,13 +29,13 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final TeamRepository teamRepository;
     private final SwiftApiCallFactory factory;
-    private final RedisTemplate redisTemplate;
+    private final MyRedisTemplate redisTemplate;
     private final CacheManager cacheManager;
 
     public MemberService(SwiftApiCallFactory factory,
                          MemberRepository memberRepository,
                          TeamRepository teamRepository,
-                         RedisTemplate redisTemplate,
+                         MyRedisTemplate redisTemplate,
                          CacheManager cacheManager) {
         this.factory = factory;
         this.memberRepository = memberRepository;
@@ -89,7 +90,7 @@ public class MemberService {
     public List<MemberEntity> getAllMembers() {
         log.info("getAllMembers is cached!");
         List<MemberEntity> ret = memberRepository.findAllEntity();
-        redisTemplate.opsForValue().set("members", ret, 30L, TimeUnit.SECONDS);
+        redisTemplate.setValue("members", ret, 30L, TimeUnit.SECONDS);
         return ret;
     }
 
