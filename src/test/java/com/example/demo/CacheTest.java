@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.cache.CacheManager;
 
 import org.springframework.data.redis.core.RedisTemplate;
@@ -36,21 +37,22 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class CacheTest {
-
-    @InjectMocks
+    // 실제 IoC에 있는 Bean객체(왜냐하면 SpringBootTest로 돌리기 때문에) 대신에 이를 Mock으로 만든다.
+    // 왜냐하면 verify(class,times()).method()를 활용하기 위해서!
+    @SpyBean
     private MemberService memberService;
-    @Mock
+    @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
     private CacheManager cacheManager;
 
-    @Mock
+    @Autowired
     private MyRedisTemplate redisTemplate;
 
-    @Mock
+    @Autowired
     private TeamRepository teamRepository;
-    @Mock
+    @Autowired
     private SwiftApiCallFactory factory;
     // mock으로 채워서 memberService를 만들어야 하는데
     // mock이 부족하니 애초에 IoC에 있었던 Bean을 가지고 와서 mock 객체가 아니였다.
@@ -72,8 +74,8 @@ public class CacheTest {
     @Test
     public void testCache() {
         // given
-        when(memberRepository.findAllEntity()).thenReturn(list);
-        doNothing().when(redisTemplate).setValue("members",list,30L,TimeUnit.SECONDS);
+      //  when(memberRepository.findAllEntity()).thenReturn(list);
+      //  doNothing().when(redisTemplate).setValue("members",list,30L,TimeUnit.SECONDS);
         // 아무래도 이렇게 부르면 cache가 안되는 것으로 보인다.
         memberService.getAllMembers();
         memberService.getAllMembers();
@@ -85,6 +87,6 @@ public class CacheTest {
         // System.out.println(cacheManager.getCache("getAllMembers"));
         // 차라리 cacheManager에 cache가 되었는가로 판단하는 것이 더 바람직 해보인다.
         assertThat(cacheManager.getCache("getAllMembers")).isNotNull();
-
+        verify(memberService,times(1)).getAllMembers();
     }
 }
