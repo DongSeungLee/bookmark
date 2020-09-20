@@ -39,6 +39,7 @@ import static org.mockito.Mockito.*;
 public class CacheTest {
     // 실제 IoC에 있는 Bean객체(왜냐하면 SpringBootTest로 돌리기 때문에) 대신에 이를 Mock으로 만든다.
     // 왜냐하면 verify(class,times()).method()를 활용하기 위해서!
+    // spyBean은 특정 객체가 사용되었는지, 그렇다면 몇번 사용되었는지를 판단하기 위해서 주로 사용된다.
     @SpyBean
     private MemberService memberService;
     @Autowired
@@ -55,6 +56,8 @@ public class CacheTest {
     @Autowired
     private SwiftApiCallFactory factory;
     // mock으로 채워서 memberService를 만들어야 하는데
+    // mokck객체는 이렇게 우리가 구현하는데 필요하지만 실제로 준비하기엔 여러가지 어령무이 따르는 대상을
+    // 필요한 부분만큼 채워서 만들어진 객체를 뜻한다.
     // mock이 부족하니 애초에 IoC에 있었던 Bean을 가지고 와서 mock 객체가 아니였다.
     List<MemberEntity> list;
 

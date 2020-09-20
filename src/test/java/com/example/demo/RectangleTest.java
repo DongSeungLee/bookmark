@@ -7,15 +7,20 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.*;
+
+import javax.persistence.SecondaryTable;
+
+import java.util.List;
+
 import static org.junit.Assert.assertThat;
 import static com.example.demo.ConstrainsSidesTo.constrainsSidesTo;
+import static org.mockito.Mockito.*;
+
+
 public class RectangleTest {
     private Rectangle rectangle;
 
-    @After
-    public void ensureInvariant() {
-        assertThat(rectangle, constrainsSidesTo(100));
-    }
+
 
     @Test
     public void answersArea() {
@@ -28,5 +33,23 @@ public class RectangleTest {
         rectangle = new Rectangle(new Point(5, 5));
         rectangle.setOppositeCorner(new Point(130, 130));
         assertThat(rectangle.area(), equalTo(15625));
+    }
+    @Test
+    public void testList(){
+        List<Integer> list = mock(List.class,RETURNS_SMART_NULLS);
+        when(list.get(0)).thenReturn(10);
+        when(list.size()).thenReturn(10);
+
+
+
+        System.out.println(list.get(0));
+        System.out.println(list.size());
+        System.out.println(list.get(2));
+        // 빈 list에 대해서 크기 0인 배열을 만들어 준다.
+        System.out.println(list.toArray());
+        // 그냥 any()라고 하면 안됨. Object가 맞지 않아서 그런 것으로 보임.
+
+        verify(list,times(2)).get(anyInt());
+        verify(list,times(1)).size();
     }
 }
