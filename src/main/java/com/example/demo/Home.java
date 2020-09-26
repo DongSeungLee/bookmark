@@ -132,6 +132,7 @@ public class Home {
 
         this.restTemplate = new RestTemplate(factory);
         memberService.findAllEntityById(1);
+
     }
 
     public Home(TestService testService
@@ -550,8 +551,8 @@ public class Home {
     }
 
     private void sendFavorite() {
-        Integer productId = 12827902;
-        for (int i = 0; i < 10; i++) {
+        Integer productId = 12827102;
+        for (int i = 0; i < 100; i++) {
             Integer newproductId = productId + i;
             String endpoint = UriComponentsBuilder
                     .fromHttpUrl("https://dev-www.fashiongo.net")
@@ -566,7 +567,7 @@ public class Home {
                     .toString();
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", "application/json");
-            headers.add("Cookie", "FG_LOGIN=FGUSER-953015263ZMMKZPURUY2ARELWIAMO;DEV_FG_SSO_SESSION=FGUSER-953015263ZMMKZPURUY2ARELWIAMO");
+            headers.add("Cookie", "FG_LOGIN=FGUSER-953015263L73AUX9AFNZUBGW1XEBQ; userAlert=userStatus%2Ctrue%3A%3AemailVerified%2Ctrue%3A%3AuserEmail%2Ctest%40fashiongo.net%3A%3AaTot%2C0; liveagent_sid=611c4c7b-ccf7-4a94-bebf-56659c255a18; liveagent_vc=45; DEV_FG_SSO_SESSION=FGUSER-953015263N86GB4RYI8OUOX7E6KEB");
             HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
             ResponseEntity<String> response = restTemplate.exchange(endpoint, HttpMethod.GET, requestEntity,
                     new ParameterizedTypeReference<String>() {
@@ -590,6 +591,15 @@ public class Home {
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccess(true);
         memberService.evictMembers();
+        return jsonResponse;
+    }
+    @PostMapping("/hohorequest")
+    @ResponseBody
+    public JsonResponse hohoRequest(@RequestBody HohoRequest request){
+        log.info("num exists in the requeset {}",request.isNumUpdated());
+        log.info("name exists in the requeset {}",request.isNameUpdated());
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setSuccess(true);
         return jsonResponse;
     }
 }

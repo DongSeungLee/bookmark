@@ -17,7 +17,7 @@
     <!-- err log file name -->
     <property name="ERR_LOG_FILE_NAME" value="err_log"/>
     <!-- pattern -->
-    <property name="LOG_PATTERN" value="%cyan(%d{yy-MM-dd HH:mm:ss}) %magenta(%5p) %yellow([%15.15t]) %green(${PID:-}) %magenta(%50.50X{http.x-request-id:--}) [%40.40logger{39}:%line] - %msg%n"/>
+    <property name="LOG_PATTERN" value="%cyan(%d{yy-MM-dd HH:mm:ss}) %magenta(%5p) %yellow([%15.15t]) %green(${PID:-}) %magenta(%50.50X{http::x-request-id:--}) %blue(%X{MDCMethod}) [%40.40logger{39}:%line] - %msg%n"/>
     <!-- Console Appender -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
