@@ -6,30 +6,19 @@ import com.example.demo.member.model.MemberEntity;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.member.repository.TeamRepository;
 import com.example.demo.swift.SwiftApiCallFactory;
-import com.example.demo.swift.SwiftApiCaller;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.cache.CacheManager;
-
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 //@ExtendWith(SpringExtension.class)
@@ -77,8 +66,8 @@ public class CacheTest {
     @Test
     public void testCache() {
         // given
-      //  when(memberRepository.findAllEntity()).thenReturn(list);
-      //  doNothing().when(redisTemplate).setValue("members",list,30L,TimeUnit.SECONDS);
+        //  when(memberRepository.findAllEntity()).thenReturn(list);
+        //  doNothing().when(redisTemplate).setValue("members",list,30L,TimeUnit.SECONDS);
         // 아무래도 이렇게 부르면 cache가 안되는 것으로 보인다.
         memberService.getAllMembers();
         memberService.getAllMembers();
@@ -90,6 +79,6 @@ public class CacheTest {
         // System.out.println(cacheManager.getCache("getAllMembers"));
         // 차라리 cacheManager에 cache가 되었는가로 판단하는 것이 더 바람직 해보인다.
         assertThat(cacheManager.getCache("getAllMembers")).isNotNull();
-        verify(memberService,times(1)).getAllMembers();
+        verify(memberService, times(1)).getAllMembers();
     }
 }

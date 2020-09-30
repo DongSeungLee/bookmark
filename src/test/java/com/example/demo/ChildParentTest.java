@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ChildParentTest {
     @Test
@@ -165,10 +166,20 @@ public class ChildParentTest {
         tmp.addAll(flatMapAll(tmp));
         return tmp;
     }
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testMap(){
-        Map<Integer,String>map = new HashMap<>();
-        map.put(1,"hoho");
-        System.out.println(map.get(2));
+        List<Integer> list = IntStream.rangeClosed(1,10)
+                .boxed()
+                .collect(Collectors.toList());
+        list.add(null);
+        Optional.ofNullable(list.get(10)).orElseThrow(()->new IllegalArgumentException());
+    }
+    @Test
+    public void testOptional(){
+        List<Integer> list = IntStream.rangeClosed(1,10)
+                .boxed()
+                .collect(Collectors.toList());
+        list.add(null);
+        System.out.println(Optional.ofNullable(list.get(10)).orElseGet(()->null));
     }
 }
