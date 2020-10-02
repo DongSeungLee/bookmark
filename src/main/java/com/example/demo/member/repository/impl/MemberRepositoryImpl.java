@@ -198,11 +198,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                 .where(M.memberId.eq(mid));
         // sqlquery로 가지고 오면 안된다 "Member" table로 인식한다.
         List<MemberEntity> list = jpasqlQuery1.fetch();
-        // JPAQuery로는 가져올 수 있는데
-//        list = new JPAQuery<>(entityManager)
-//                .select(M)
-//                .from(M)
-//                .where(M.memberId.eq(mid)).fetch();
+
         return jpasqlQuery;
     }
 }
