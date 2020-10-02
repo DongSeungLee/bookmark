@@ -202,6 +202,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         // 처음에 H2SQLServerTemplate이것을 할당해서 넣었다.
         List<MemberEntity> list = jpasqlQuery1.fetch();
         // dev commit1
+        // dev commit2
         return jpasqlQuery;
     }
 }
