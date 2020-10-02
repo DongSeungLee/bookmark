@@ -203,6 +203,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         List<MemberEntity> list = jpasqlQuery1.fetch();
         // dev commit1
         // dev commit2
+        // commit1
         return jpasqlQuery;
     }
 }
