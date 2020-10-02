@@ -3,6 +3,7 @@ package com.example.demo.member.repository.impl;
 import com.example.demo.JPA.MSSQLServer2012Templates;
 import com.example.demo.book.model.QBookEntity;
 import com.example.demo.book.model.QPerson;
+import com.example.demo.member.H2SQLServerTemplate;
 import com.example.demo.member.model.AllDto;
 import com.example.demo.member.model.MemberDto;
 import com.example.demo.member.model.MemberEntity;
@@ -197,6 +198,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                 .from(M)
                 .where(M.memberId.eq(mid));
         // sqlquery로 가지고 오면 안된다 "Member" table로 인식한다.
+        // 이는 H2Template에 넣는 것이 이상해서 그랬다.
+        // 처음에 H2SQLServerTemplate이것을 할당해서 넣었다.
         List<MemberEntity> list = jpasqlQuery1.fetch();
 
         return jpasqlQuery;
