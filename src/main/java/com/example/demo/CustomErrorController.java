@@ -28,6 +28,14 @@ public class CustomErrorController extends BasicErrorController {
    //     errorViewResolvers.add(()->{return new ModelAndView("4xx",new Map<String,Object>())});
         super(errorAttributes, serverProperties.getError(), errorViewResolvers);
     }
+    /* 현재까지 파악한 바로는(20201006) 이렇게 custom errorController를 만들게 되면
+     * excecption이 터졌을 때 이를 낚아채서 다시 여기로 요청을 보낸다.(GET)
+     * 그래서 해당 요청을 받고 error page를 그려준다고 볼 수 있겠다.
+     * ExceptionHandlerResolver를 활용해서 exception이 터질 때 api를 내리는게 아니라
+     * 특정 page로 이동하게끔 구현할 수도 있을 거 같은데 전역으로 ControllerAdvice를 설정해서 이를 어떻게 해야
+     * 할지 모르겠다. 만약 전역으로 하는 것은 RestController만 하고 Controller에 대해서는 ExceptionHandlerResolver를
+     * 해서 Exception에 따른 error페이지를 보여줄 수도 있겠다.
+     */
     @RequestMapping(produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView errorHtml(HttpServletRequest request,
                                   HttpServletResponse response) {
