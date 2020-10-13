@@ -3,11 +3,7 @@ package com.example.demo;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,38 +24,41 @@ public class MovieTest {
     }
 
     @Test
-    public void should_return_0_when_just_created(){
+    public void should_return_0_when_just_created() {
         assertThat(movie.averageRating()).isEqualTo(0);
     }
 
     @Test
-    public void should_return_1_when_1_was_rated(){
+    public void should_return_1_when_1_was_rated() {
         movie.rate(1);
         assertThat(movie.averageRating()).isEqualTo(1);
     }
 
     @Test
-    public void should_return_4_when_3_and_5_were_rated(){
+    public void should_return_4_when_3_and_5_were_rated() {
         movie.rate(3);
         movie.rate(5);
         assertThat(movie.averageRating()).isEqualTo(4);
         System.out.println(LocalDateTime.parse("2020-10-04T21:51:15.267"));
     }
+
     @Test
-    public void testList(){
-        List<Integer> list = IntStream.rangeClosed(1,55).boxed().collect(Collectors.toList());
+    public void testList() {
+        List<Integer> list = IntStream.rangeClosed(1, 55).boxed().collect(Collectors.toList());
         List<Integer> first = new ArrayList<>();
-        for(int i=0;i<list.size();i+=10){
-            List<Integer> temp = list.subList(i,Math.min(i+10,list.size()));
-            System.out.println(temp.stream().reduce(Integer::sum).orElseGet(()->null)+" "+temp.size());
+        for (int i = 0; i < list.size(); i += 10) {
+            List<Integer> temp = list.subList(i, Math.min(i + 10, list.size()));
+            System.out.println(temp.stream().reduce(Integer::sum).orElseGet(() -> null) + " " + temp.size());
             first.addAll(temp);
         }
         System.out.println(first.size());
-        Map<Integer,Integer> map = new HashMap<>();
-        map.put(1,1);
-        System.out.println(Optional.ofNullable(map.get(2)).map(entity->{
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1, 1);
+        System.out.println(Optional.ofNullable(map.get(2)).map(entity -> {
             System.out.println(entity);
-            return entity+10;
-        }).map(v->v+10).orElseGet(()->null));
+            return entity + 10;
+        }).map(v -> v + 10).orElseGet(() -> null));
+
+        System.out.println("hoho" + null);
     }
 }
