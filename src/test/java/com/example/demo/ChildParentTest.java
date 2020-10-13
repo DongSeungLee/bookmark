@@ -166,20 +166,51 @@ public class ChildParentTest {
         tmp.addAll(flatMapAll(tmp));
         return tmp;
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testMap(){
-        List<Integer> list = IntStream.rangeClosed(1,10)
+    public void testMap() {
+        List<Integer> list = IntStream.rangeClosed(1, 10)
                 .boxed()
                 .collect(Collectors.toList());
         list.add(null);
-        Optional.ofNullable(list.get(10)).orElseThrow(()->new IllegalArgumentException());
+        Optional.ofNullable(list.get(10)).orElseThrow(() -> new IllegalArgumentException());
     }
+
     @Test
-    public void testOptional(){
-        List<Integer> list = IntStream.rangeClosed(1,10)
+    public void testOptional() {
+        List<Integer> list = IntStream.rangeClosed(1, 10)
                 .boxed()
                 .collect(Collectors.toList());
         list.add(null);
-        System.out.println(Optional.ofNullable(list.get(10)).orElseGet(()->null));
+        System.out.println(Optional.ofNullable(list.get(10)).orElseGet(() -> null));
+    }
+
+    @Test
+    public void testOptionalMap() {
+        CategoryEntity c1 = CategoryEntity.builder()
+                .id(1)
+                .name("name1")
+                .build();
+        c1.addChildren(CategoryEntity.builder()
+                .id(11)
+                .name("name11")
+                .build());
+        c1.addChildren(CategoryEntity.builder()
+                .id(12)
+                .name("name12")
+                .build());
+        System.out.println(Optional.ofNullable(c1).map(entity -> {
+            System.out.println("first depth");
+            return entity.getChildren().get(0);
+        })
+                .map(entity -> {
+                    System.out.println("second depth");
+                    return entity.getChildren().size() > 0 ? entity.getChildren().get(0) : null;
+                })
+                .map(entity -> {
+                    System.out.println("third depth");
+                    return entity;
+                })
+                .orElseGet(() -> null));
     }
 }
