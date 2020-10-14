@@ -132,7 +132,7 @@ public class Home {
 
         this.restTemplate = new RestTemplate(factory);
         memberService.findAllEntityById(1);
-
+        testService.hoho();
     }
 
     public Home(TestService testService
