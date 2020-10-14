@@ -5,12 +5,10 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -62,6 +60,17 @@ public class MovieTest {
         }).map(v -> v + 10).orElseGet(() -> null));
 
 
+    }
 
+    @Test
+    public void test_optional_ifPresent() {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1, 1);
+        Optional.ofNullable(map.get(2)).ifPresent(
+                entity -> System.out.println(entity)
+        );
+        System.out.println(Optional.ofNullable(map.get(1))
+                .map(entity->entity+10)
+                .orElseGet(()->null));
     }
 }

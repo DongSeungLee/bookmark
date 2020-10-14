@@ -165,7 +165,6 @@ public class ChildParentTest {
         System.out.println(map);
     }
 
-    //old
     private List<CategoryEntity> flatMapAll(List<CategoryEntity> here) {
         List<CategoryEntity> tmp = here.stream()
                 .map(entity -> entity.getChildren())
