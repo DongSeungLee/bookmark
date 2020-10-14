@@ -5,10 +5,12 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -59,6 +61,7 @@ public class MovieTest {
             return entity + 10;
         }).map(v -> v + 10).orElseGet(() -> null));
 
-        System.out.println("hoho" + null);
+
+
     }
 }

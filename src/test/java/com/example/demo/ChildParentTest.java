@@ -91,16 +91,16 @@ public class ChildParentTest {
                 .build());
         c2.addChildren(CategoryEntity.builder()
                 .id(22)
-                .name("name22")
+                .name("name21")
                 .build());
         CategoryEntity c221 = CategoryEntity.builder()
                 .id(221)
-                .name("name221")
+                .name("name22")
                 .build();
         c2.getChildren().get(1).addChildren(c221);
         CategoryEntity c222 = CategoryEntity.builder()
                 .id(222)
-                .name("name222")
+                .name("name22")
                 .build();
         c2.getChildren().get(1).addChildren(c222);
         c221.addChildren(
@@ -151,10 +151,21 @@ public class ChildParentTest {
                         .build()
         );
 
+        // 현재에 아래 children을 모두 flatMap한 것을 추가한다!
         List<CategoryEntity> ret = flatMapAll(Arrays.asList(c1, c2));
-        ret.stream().forEach(entity -> System.out.println(entity.getId()));
+        ret.addAll(Arrays.asList(c1, c2));
+        ret.add(CategoryEntity.builder()
+                .id(1)
+                .name("name1")
+                .build());
+        Comparator<CategoryEntity> comparator = Comparator.comparing(CategoryEntity::getId).reversed().thenComparing(CategoryEntity::getName);
+        ret = ret.stream().sorted(comparator).collect(Collectors.toList());
+        Map<Integer, Map<String, List<CategoryEntity>>> map = ret.stream()
+                .collect(Collectors.groupingBy(CategoryEntity::getId, Collectors.groupingBy(CategoryEntity::getName)));
+        System.out.println(map);
     }
 
+    //old
     private List<CategoryEntity> flatMapAll(List<CategoryEntity> here) {
         List<CategoryEntity> tmp = here.stream()
                 .map(entity -> entity.getChildren())
