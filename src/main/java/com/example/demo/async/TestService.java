@@ -20,16 +20,23 @@ public class TestService {
     }
 
 
-    private void asyncHello(int i) {
-        asyncService.run(() -> {
-            log.info("async i :" + i);
-        });
+    private void asyncHello(int j) {
+        // 이렇게 해야 async로 함수 10번을 호출한다.
+        // 이때 설정한 queue의 갯수보다 많은 thread를 실행하려 한다면(빠른 시간내에) RejectedExecutionException가 발생한다.
+        for (int i = 0; i < j; i++) {
+            int finalI = i;
+            asyncService.run(() -> {
+                log.info("async i :" + finalI);
+            });
+        }
+
     }
 
     @Async("dsThreadPoolTaskExecutor")
-    public void hoho() {
-        for (int i = 0; i < 100; i++) {
-            log.info("async test service in hoho method : {}", i);
+    public void hoho() throws InterruptedException {
+        Thread.sleep(1000);
+        for (int i = 0; i < 10; i++) {
+            log.info("async test service in hoho method : {} and {}", i, Thread.currentThread().getName());
         }
         return;
     }

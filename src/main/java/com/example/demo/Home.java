@@ -19,13 +19,27 @@ import com.example.demo.book.WidgetService;
 import com.example.demo.hoho.Hoho;
 import com.example.demo.member.MemberService;
 import com.example.demo.member.repository.OrderService;
-import com.example.demo.model.*;
+import com.example.demo.model.BookmarkBody;
+import com.example.demo.model.CollectionObject;
+import com.example.demo.model.DongSeung;
+import com.example.demo.model.FieldExam;
+import com.example.demo.model.ImageUrls;
+import com.example.demo.model.JsonResponse;
+import com.example.demo.model.NotFoundException;
+import com.example.demo.model.ResultCode;
+import com.example.demo.model.UserInfoCheck;
 import com.example.demo.product.ProductService;
 import com.example.demo.request.CreateMemberRequest;
 import com.example.demo.security.TokenAuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.DocumentException;
-import com.rabbitmq.client.*;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -35,12 +49,24 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -116,7 +142,7 @@ public class Home {
     private final TokenAuthenticationService tokenAuthenticationService;
 
     @PostConstruct
-    public void init() {
+    public void init() throws InterruptedException {
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectTimeout(3000)
                 .setSocketTimeout(10000)
@@ -132,7 +158,9 @@ public class Home {
 
         this.restTemplate = new RestTemplate(factory);
         memberService.findAllEntityById(1);
-        testService.hoho();
+//        testService.hoho();
+//        log.info("after test service");
+//        testService.func(10);
     }
 
     public Home(TestService testService
@@ -593,11 +621,12 @@ public class Home {
         memberService.evictMembers();
         return jsonResponse;
     }
+
     @PostMapping("/hohorequest")
     @ResponseBody
-    public JsonResponse hohoRequest(@RequestBody HohoRequest request){
-        log.info("num exists in the requeset {}",request.isNumUpdated());
-        log.info("name exists in the requeset {}",request.isNameUpdated());
+    public JsonResponse hohoRequest(@RequestBody HohoRequest request) {
+        log.info("num exists in the requeset {}", request.isNumUpdated());
+        log.info("name exists in the requeset {}", request.isNameUpdated());
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccess(true);
         return jsonResponse;

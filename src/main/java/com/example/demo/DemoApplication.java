@@ -26,7 +26,6 @@ import java.lang.reflect.Proxy;
 import java.util.concurrent.TimeoutException;
 
 
-@EnableAsync
 @EnableCaching
 @SpringBootApplication(exclude = {
         DataSourceAutoConfiguration.class,

@@ -15,7 +15,9 @@ public class AsyncThreadConfiguration {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         threadPoolTaskExecutor.setCorePoolSize(10);
         threadPoolTaskExecutor.setMaxPoolSize(50);
+        threadPoolTaskExecutor.setQueueCapacity(10);
         threadPoolTaskExecutor.setThreadNamePrefix("ds-threadPool");
+        threadPoolTaskExecutor.initialize();
         return threadPoolTaskExecutor;
     }
 }
