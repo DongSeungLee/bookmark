@@ -55,7 +55,6 @@ public class DemoApplication {
         System.out.print(inter.toMessage());
     }
 
-
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();

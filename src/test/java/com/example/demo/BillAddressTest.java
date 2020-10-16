@@ -48,6 +48,7 @@ public class BillAddressTest {
         methodSetName.invoke(m1, "hehe");
         // getName으로 확인
         System.out.println(m.invoke(m1));
+        // hehe 확인!
         assertThat(m.invoke(m1)).isEqualTo("hehe");
     }
 }
