@@ -4,7 +4,9 @@ import com.example.demo.junit.Point;
 import com.example.demo.junit.Rectangle;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
@@ -53,5 +55,20 @@ public class RectangleTest {
         if (a && 1 == b) {
             System.out.println("HOHO");
         }
+    }
+    @Test
+    public void testLocalDateTime(){
+        LocalDateTime here = LocalDateTime.now();
+        // null이면 NPE 발생!
+        // 여기서 isAfter로 하면 false다. method가 나중에 호출되어서 더 늦은 시각이다.
+        // 놀랍게도 here가 null 아닐 때 orElse는 반드시 한번 실행된다.
+        // 그렇기 때문에 왠만하면 lambda로 하는 것이 효율적이다.
+        System.out.println(LocalDateTime.now().isBefore(Optional.ofNullable(here)
+                .orElse(getNow())));
+
+    }
+    private LocalDateTime getNow(){
+        System.out.println("getNow method is called");
+        return LocalDateTime.now();
     }
 }
