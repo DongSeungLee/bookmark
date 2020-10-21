@@ -56,19 +56,34 @@ public class RectangleTest {
             System.out.println("HOHO");
         }
     }
+
     @Test
-    public void testLocalDateTime(){
+    public void testLocalDateTime() {
         LocalDateTime here = LocalDateTime.now();
         // null이면 NPE 발생!
         // 여기서 isAfter로 하면 false다. method가 나중에 호출되어서 더 늦은 시각이다.
         // 놀랍게도 here가 null 아닐 때 orElse는 반드시 한번 실행된다.
         // 그렇기 때문에 왠만하면 lambda로 하는 것이 효율적이다.
+        // 생각해 보니 당연하다. 왜냐하면 parsing할 때 method가 argument로 있으면 먼저 실행한다.
+        // method가 inner로 존재하고 있다면 이것을 먼저 실행하는 것이 language grammar였다.
         System.out.println(LocalDateTime.now().isBefore(Optional.ofNullable(here)
                 .orElse(getNow())));
 
     }
-    private LocalDateTime getNow(){
+
+    private LocalDateTime getNow() {
         System.out.println("getNow method is called");
         return LocalDateTime.now();
+    }
+
+    @Test
+    public void testBooleanNull() {
+        Boolean active = null;
+        System.out.println(active == null ? "Y" : "N");
+        Optional.ofNullable(active)
+                .ifPresent(entity->{
+                    System.out.println("exists!");
+                    System.out.println(active);
+                });
     }
 }
