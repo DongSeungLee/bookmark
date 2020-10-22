@@ -162,7 +162,13 @@ public class ChildParentTest {
         ret = ret.stream().sorted(comparator).collect(Collectors.toList());
         Map<Integer, Map<String, List<CategoryEntity>>> map = ret.stream()
                 .collect(Collectors.groupingBy(CategoryEntity::getId, Collectors.groupingBy(CategoryEntity::getName)));
-        System.out.println(map);
+
+        System.out.println(ret.get(0).compareCharSum());
+        Comparator<CategoryEntity> reversedId = Comparator.comparing(CategoryEntity::getId).reversed();
+        ret = ret.stream().sorted(Comparator.comparing(CategoryEntity::compareCharSum).thenComparing(reversedId)).collect(Collectors.toList());
+        System.out.println(ret);
+        // compareCharSum 내림차순으로 하고 같다면 id로 역순(내림차순)으로 다시 정렬!
+        ret.stream().forEach(entity->System.out.println(entity.compareCharSum()+ " "+entity.getId()));
     }
 
     private List<CategoryEntity> flatMapAll(List<CategoryEntity> here) {

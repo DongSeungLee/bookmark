@@ -28,4 +28,12 @@ public class CategoryEntity {
     public void addChildren(CategoryEntity c) {
         children.add(c);
     }
+    public Integer compareCharSum(){
+        Integer ret = 0;
+        byte[] list = this.name.getBytes();
+        for(int i=0;i<list.length;i++){
+            ret += list[i];
+        }
+        return ret;
+    }
 }
