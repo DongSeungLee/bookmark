@@ -277,6 +277,18 @@
             <artifactId>jedis</artifactId>
             <version>3.1.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.toast.java.logncrash.logback</groupId>
+            <artifactId>logncrash-java-sdk3</artifactId>
+            <version>3.0.4</version>
+        </dependency>
     </dependencies>
 
     <build>

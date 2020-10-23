@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.AOP.Inter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -33,6 +34,7 @@ import java.util.concurrent.TimeoutException;
         HibernateJpaAutoConfiguration.class
 })
 @EnableScheduling
+@Slf4j
 public class DemoApplication {
     private final static String QUEUE_NAME = "hello";
 
@@ -53,6 +55,7 @@ public class DemoApplication {
         // Inter is Functional Interface which contains toMessage method only!
         // then can i squash all the commits before?
         System.out.print(inter.toMessage());
+        log.warn("demoapplication started");
     }
 
     @Bean

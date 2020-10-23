@@ -626,9 +626,10 @@ public class Home {
     @ResponseBody
     public JsonResponse hohoRequest(@RequestBody HohoRequest request) {
         log.info("num exists in the requeset {}", request.isNumUpdated());
-        log.info("name exists in the requeset {}", request.isNameUpdated());
+        log.warn("hoho request is called");
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccess(true);
+
         return jsonResponse;
     }
 }

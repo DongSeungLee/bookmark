@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <springProperty scope="context" name="ACTIVE_PROFILE" source="spring.profiles.active"/>
+    <springProfile name="local">
+        <property name="appKey" value="DX9IqlKAKNbOxYXR"/>
+    </springProfile>
+
+    <appender name="logNCrashLogger" class="ch.qos.logback.classic.AsyncAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <param name="includeCallerData" value="false"/>
+        <param name="queueSize" value="2048"/>
+        <param name="neverBlock" value="true"/>
+        <param name="maxFlushTime" value="60000"/>
+
+        <appender name="logNCrashHttpAsync" class="com.toast.java.logncrash.logback.LogNCrashHttpAppender">
+            <param name="appKey" value="${appKey}"/>
+            <param name="logType" value="demoapplication"/>
+            <param name="logSource" value="${ACTIVE_PROFILE}"/>
+            <param name="version" value="0.0.1-SNAPSHOT"/>
+            <param name="debug" value="true"/>
+            <param name="errorCodeType" value="action"/>
+        </appender>
+    </appender>
+
+</configuration>

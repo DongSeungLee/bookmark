@@ -7,6 +7,10 @@ import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -50,5 +54,17 @@ public class BillAddressTest {
         System.out.println(m.invoke(m1));
         // hehe 확인!
         assertThat(m.invoke(m1)).isEqualTo("hehe");
+    }
+
+    // 중복 제거
+    @Test
+    public void test_erase_duplicated_String() {
+        List<String> list = new ArrayList();
+        list.add("DS1");
+        list.add("DS2");
+        list.add("DS1");
+        list.add("DS2");
+        List<String> ret = new LinkedHashSet<>(list).stream().collect(Collectors.toList());
+        System.out.println(ret);
     }
 }
