@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -101,5 +102,12 @@ public class BillAddressTest {
         list = list.stream().sorted(Comparator.comparingInt(Student::getId)
                 .thenComparing(reversedOrder)).collect(Collectors.toList());
         System.out.println(list);
+    }
+    @Test(expected = NullPointerException.class)
+    public void test_Objects_requireNonNull(){
+        Integer a = null;
+        // throw NPE
+        Objects.requireNonNull(a);
+        System.out.println("hoho");
     }
 }
