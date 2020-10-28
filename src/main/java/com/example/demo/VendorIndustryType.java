@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public enum VendorIndustryType {
-    
     Women(1, "Women's Clothing"),
     Men(2, "Man's Clothing"),
     Kids(3, "Children's Clothing"),
@@ -22,12 +21,14 @@ public enum VendorIndustryType {
         this.name = name;
     }
 
-    public Integer getNum(){
+    public Integer getNum() {
         return this.num;
     }
-    public String getName(){
+
+    public String getName() {
         return this.getName();
     }
+
     private static Map<Integer, String> numNameMap = new HashMap<>();
     private static Map<String, Integer> nameNumMap = new HashMap<>();
 
@@ -38,10 +39,11 @@ public enum VendorIndustryType {
         }
     }
 
-    public static Integer getNum(String _name){
-        return Optional.ofNullable(nameNumMap.get(_name)).orElseThrow(()->new IllegalArgumentException("cannot find name :"+_name));
+    public static Integer getNum(String _name) {
+        return Optional.ofNullable(nameNumMap.get(_name)).orElseThrow(() -> new IllegalArgumentException("cannot find name :" + _name));
     }
-    public static String getName(Integer _num){
-        return Optional.ofNullable(numNameMap.get(_num)).orElseThrow(()->new IllegalArgumentException("cannot find num :"+_num));
+
+    public static String getName(Integer _num) {
+        return Optional.ofNullable(numNameMap.get(_num)).orElseThrow(() -> new IllegalArgumentException("cannot find num :" + _num));
     }
 }
