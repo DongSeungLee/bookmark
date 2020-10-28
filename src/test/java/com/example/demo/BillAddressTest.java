@@ -112,4 +112,24 @@ public class BillAddressTest {
         Objects.requireNonNull(a);
         System.out.println("hoho");
     }
+
+    @Test
+    public void test_IndustryConverter() {
+        System.out.println(VendorIndustryType.getNum("Women's Clothing"));
+        System.out.println(VendorIndustryType.getNum("Man's Clothing"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_IndustryConverter_throwException() {
+        System.out.println(VendorIndustryType.getNum("Women1"));
+        System.out.println(VendorIndustryType.getNum("Men2"));
+    }
+
+    // to lower case!
+    @Test
+    public void test_Industry_String_array() {
+        String[] arr = {"Shoes", "Accessories", "Handbag"};
+        List<Integer> ret = Arrays.asList(arr).stream().map(entity -> VendorIndustryType.getNum(entity)).collect(Collectors.toList());
+        System.out.println(ret);
+    }
 }
