@@ -95,8 +95,8 @@ public class BillAddressTest {
         Student s4 = Student.builder().id(2).name("BBB").build();
         Student s5 = Student.builder().id(2).name("CCC").build();
         List<Student> list = Arrays.asList(s1, s2, s3, s4, s5);
-//        Collections.sort(list);
-//        System.out.println(list);
+        // Collections.sort(list);
+        // System.out.println(list);
         // Student에 있는 Comparable<Student>의 interface compareTo와 동일한 기능이다.
         // id로 먼저 ascending order하고 같다면 reversedOrder로 name의 역순으로 sorting한다.
         Comparator<Student> reversedOrder = Comparator.comparing(Student::getName).reversed();
