@@ -15,7 +15,6 @@ public enum VendorIndustryType {
     Beauty(8, "Beauty");
     private int num;
     private String name;
-
     VendorIndustryType(int value, String name) {
         this.num = value;
         this.name = name;
@@ -26,7 +25,7 @@ public enum VendorIndustryType {
     }
 
     public String getName() {
-        return this.getName();
+        return this.name;
     }
 
     private static Map<Integer, String> numNameMap = new HashMap<>();
