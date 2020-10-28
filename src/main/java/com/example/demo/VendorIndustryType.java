@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public enum VendorIndustryType {
+    
     Women(1, "Women's Clothing"),
     Men(2, "Man's Clothing"),
     Kids(3, "Children's Clothing"),
