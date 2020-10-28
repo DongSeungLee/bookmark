@@ -102,6 +102,7 @@ public class BillAddressTest {
         Comparator<Student> reversedOrder = Comparator.comparing(Student::getName).reversed();
         list = list.stream().sorted(Comparator.comparingInt(Student::getId)
                 .thenComparing(reversedOrder)).collect(Collectors.toList());
+
         System.out.println(list);
     }
 
@@ -110,6 +111,7 @@ public class BillAddressTest {
         Integer a = null;
         // throw NPE
         Objects.requireNonNull(a);
+        // System.out.println("hoho");
         System.out.println("hoho");
     }
 
