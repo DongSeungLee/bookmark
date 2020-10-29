@@ -2,6 +2,8 @@ package com.example.demo;
 
 import com.example.demo.member.model.MemberEntity;
 import com.example.demo.model.BillAddressDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -133,5 +135,11 @@ public class BillAddressTest {
         String[] arr = {"Shoes", "Accessories", "Handbag"};
         List<Integer> ret = Arrays.asList(arr).stream().map(entity -> VendorIndustryType.getNum(entity)).collect(Collectors.toList());
         System.out.println(ret);
+    }
+
+    @Test
+    public void test_write_value_as_String() throws JsonProcessingException {
+        Student s1 = Student.builder().id(1).name("AAA").build();
+        System.out.println(new ObjectMapper().writeValueAsString(s1));
     }
 }
