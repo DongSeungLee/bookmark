@@ -148,11 +148,16 @@ public class BillAddressTest {
     @Test
     public void test_joining_String() {
         List<String> list = Arrays.asList("hoho", "hiihi", "DongSeung");
-        System.out.println(list.stream().collect(Collectors.joining(", ")));
-        String joining = list.stream().collect(Collectors.joining(", "));
-        joining += ",,";
-        List<String> splittedStr = Arrays.asList(joining.split(","));
-        System.out.println(splittedStr);
+//        System.out.println(list.stream().collect(Collectors.joining(", ")));
+//        String joining = list.stream().collect(Collectors.joining(", "));
+//        joining += ",,";
+//        List<String> splittedStr = Arrays.asList(joining.split(","));
+//        System.out.println(splittedStr);
+        String[] arr = list.toArray(new String[5]);
+        // list.size > new String[size]의 size라면 size만큼의 Array가 할당
+        // Otherwise, String[size]의 size가 할당 되어서 무조건 new String[0]으로 하는 것이 좋다.
+        System.out.println(arr.length);
+
     }
 
     @Test
