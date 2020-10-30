@@ -142,4 +142,14 @@ public class BillAddressTest {
         Student s1 = Student.builder().id(1).name("AAA").build();
         System.out.println(new ObjectMapper().writeValueAsString(s1));
     }
+
+    @Test
+    public void test_joining_String() {
+        List<String> list = Arrays.asList("hoho", "hiihi", "DongSeung");
+        System.out.println(list.stream().collect(Collectors.joining(", ")));
+        String joining = list.stream().collect(Collectors.joining(", "));
+        joining += ",,";
+        List<String> splittedStr = Arrays.asList(joining.split(","));
+        System.out.println(splittedStr);
+    }
 }
