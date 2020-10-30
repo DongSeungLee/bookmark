@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -151,5 +153,15 @@ public class BillAddressTest {
         joining += ",,";
         List<String> splittedStr = Arrays.asList(joining.split(","));
         System.out.println(splittedStr);
+    }
+
+    @Test
+    public void test_LocalDateTimeParsing() {
+//        String now = "2020-10-30 12:12:12.222";
+//        System.out.println(LocalDateTime.parse(now, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")));
+//        System.out.println(LocalDateTime.now().toString());
+        String nowStr = LocalDateTime.now().toString();
+        // T가 들어가 있는 String을 parsing할 때는 'T'가 있어야 한다.
+        System.out.println(LocalDateTime.parse(nowStr, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")));
     }
 }
