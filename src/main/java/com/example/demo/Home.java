@@ -161,6 +161,7 @@ public class Home {
 //        testService.hoho();
 //        log.info("after test service");
 //        testService.func(10);
+        sendFavorite();
     }
 
     public Home(TestService testService
@@ -579,7 +580,7 @@ public class Home {
     }
 
     private void sendFavorite() {
-        Integer productId = 12827102;
+        Integer productId = 13130102;
         for (int i = 0; i < 100; i++) {
             Integer newproductId = productId + i;
             String endpoint = UriComponentsBuilder
@@ -595,7 +596,7 @@ public class Home {
                     .toString();
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", "application/json");
-            headers.add("Cookie", "FG_LOGIN=FGUSER-953015263L73AUX9AFNZUBGW1XEBQ; userAlert=userStatus%2Ctrue%3A%3AemailVerified%2Ctrue%3A%3AuserEmail%2Ctest%40fashiongo.net%3A%3AaTot%2C0; liveagent_sid=611c4c7b-ccf7-4a94-bebf-56659c255a18; liveagent_vc=45; DEV_FG_SSO_SESSION=FGUSER-953015263N86GB4RYI8OUOX7E6KEB");
+            headers.add("Cookie", "FG_LOGIN=FGUSER-953015263YDGVKMZCZVDQIZP0UIS4;");
             HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
             ResponseEntity<String> response = restTemplate.exchange(endpoint, HttpMethod.GET, requestEntity,
                     new ParameterizedTypeReference<String>() {

@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -168,5 +170,18 @@ public class BillAddressTest {
         String nowStr = LocalDateTime.now().toString();
         // T가 들어가 있는 String을 parsing할 때는 'T'가 있어야 한다.
         System.out.println(LocalDateTime.parse(nowStr, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")));
+    }
+
+    @Test
+    public void test_encoding() throws UnsupportedEncodingException {
+        String str = "안녕하세요 나는 이동승입니다";
+        System.out.println(URLEncoder.encode(str, "utf-8").replaceAll("\\+", "%20"));
+        System.out.println(URLEncoder.encode(str, "utf-8"));
+    }
+
+    @Test
+    public void test_erase_white_space() {
+        String hoho = "hoho hihi hehe";
+        System.out.println(hoho.replaceAll("\\s", ""));
     }
 }
