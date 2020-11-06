@@ -579,9 +579,9 @@ public class Home {
         return r;
     }
 
-    private void sendFavorite() {
-        Integer productId = 13130102;
-        for (int i = 0; i < 100; i++) {
+    private void sendFavorite() throws InterruptedException {
+        Integer productId = 11109102;
+        for (int i = 0; i < 10000; i++) {
             Integer newproductId = productId + i;
             String endpoint = UriComponentsBuilder
                     .fromHttpUrl("https://dev-www.fashiongo.net")
@@ -596,12 +596,13 @@ public class Home {
                     .toString();
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", "application/json");
-            headers.add("Cookie", "FG_LOGIN=FGUSER-953015263YDGVKMZCZVDQIZP0UIS4;");
+            headers.add("Cookie", "FG_LOGIN=FGUSER-953015263BAQ5PZD5CI3ZVUFNJOZG;");
             HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
             ResponseEntity<String> response = restTemplate.exchange(endpoint, HttpMethod.GET, requestEntity,
                     new ParameterizedTypeReference<String>() {
                     });
             System.out.println(response);
+            Thread.sleep(1000);
         }
     }
 

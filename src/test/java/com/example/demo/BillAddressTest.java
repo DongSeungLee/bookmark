@@ -15,10 +15,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -183,5 +186,21 @@ public class BillAddressTest {
     public void test_erase_white_space() {
         String hoho = "hoho hihi hehe";
         System.out.println(hoho.replaceAll("\\s", ""));
+    }
+
+    @Test
+    public void test_empty_list_to_map() {
+        List<Integer> list = Collections.emptyList();
+        Map<Integer, Integer> map = list.stream().collect(Collectors.toMap(
+                Integer::intValue, Function.identity()
+        ));
+        System.out.println(map.get(1));
+        List<Student> students = Arrays.asList();
+        list = students.stream().map(Student::getId).collect(Collectors.toList());
+        System.out.println(list);
+        List<Integer> hoho = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+        list.stream().forEach(entity -> {
+            System.out.println(hoho.stream().anyMatch(h -> h == entity));
+        });
     }
 }
