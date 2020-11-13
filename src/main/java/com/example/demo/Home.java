@@ -161,7 +161,8 @@ public class Home {
 //        testService.hoho();
 //        log.info("after test service");
 //        testService.func(10);
-        //sendFavorite();
+
+//        sendFavorite();
     }
 
     public Home(TestService testService
