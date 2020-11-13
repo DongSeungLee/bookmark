@@ -13,20 +13,25 @@ import javax.persistence.*;
 @Setter
 @Table(name = "widget")
 public class Widget {
+
     @Column(name = "name")
     private String name;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
     @ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name="person_id")
     @JsonBackReference
     private Person person;
-    public void setPerson(Person person){
+
+    public void setPerson(Person person) {
         this.person = person;
     }
-    Widget() {
+
+    public Widget() {
 
     }
 

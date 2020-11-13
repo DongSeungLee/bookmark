@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "team")
@@ -20,8 +22,8 @@ public class TeamEntity implements Serializable {
     @Column(name = "name")
     private String name;
 
-//    @OneToMany(fetch=FetchType.LAZY,mappedBy = "teamEntity")
-//    private List<MemberEntity> members = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teamEntity")
+    private List<MemberEntity> members = new ArrayList<>();
 
     public TeamEntity() {
 

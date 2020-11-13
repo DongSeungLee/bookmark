@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import com.example.demo.book.model.Person;
+import com.example.demo.book.model.QPerson;
+import com.example.demo.book.model.QWidget;
 import com.example.demo.book.model.Widget;
 import com.example.demo.book.repository.PersonRepository;
 import com.example.demo.member.repository.MemberRepository;
@@ -8,6 +10,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.operation.MicrosoftSqlDatabaseOperationLookup;
+import com.querydsl.jpa.impl.JPAQuery;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
@@ -25,9 +28,15 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
 import org.junit.Assert.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -61,8 +70,11 @@ public class UserIntegrationTest {
     private DefaultListableBeanFactory df;
     @Autowired
     private MockMvc mockMvc;
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @BeforeEach
-    void setUp(){
+    void setUp() {
         Person person = Person.builder().name("ds").build();
         Widget w1 = Widget.builder().name("hoho").build();
         Widget w2 = Widget.builder().name("hihi").build();
@@ -70,6 +82,7 @@ public class UserIntegrationTest {
         w2.setPerson(person);
         personRepository.save(person);
     }
+
     @Test
     @DatabaseSetup(
             value = {
@@ -102,10 +115,35 @@ public class UserIntegrationTest {
             value = {
                     "/database/member.xml"
             })
-    public void existByIdTest(){
+    public void existByIdTest() {
         boolean ret = memberRepository.existByID(1);
         assertTrue(ret);
         boolean ret1 = memberRepository.existByID(1000);
         assertFalse(ret1);
+    }
+
+    @Test
+    @DatabaseSetup(
+            value = {
+                    "/database/widget.xml",
+                    "/database/person.xml",
+
+            })
+    public void test_empty_list() {
+        QPerson P = new QPerson("P");
+        QWidget W = new QWidget("W");
+        Person person = new JPAQuery<>(entityManager)
+                .select(P)
+                .from(P)
+                .leftJoin(P.widget, W).fetchJoin()
+                .where(P.id.eq(3))
+                .fetchFirst();
+        System.out.println(person);
+        List<Integer> list = person.getWidget().stream()
+                .map(Widget::getId)
+                .collect(Collectors.toList());
+        System.out.println(list);
+        Widget ww = person.getWidget().stream().findFirst().orElseGet(() -> new Widget());
+        System.out.println(ww);
     }
 }

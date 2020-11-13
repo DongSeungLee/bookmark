@@ -161,7 +161,7 @@ public class Home {
 //        testService.hoho();
 //        log.info("after test service");
 //        testService.func(10);
-        sendFavorite();
+        //sendFavorite();
     }
 
     public Home(TestService testService
@@ -580,7 +580,7 @@ public class Home {
     }
 
     private void sendFavorite() throws InterruptedException {
-        Integer productId = 11109102;
+        Integer productId = 11119102;
         for (int i = 0; i < 10000; i++) {
             Integer newproductId = productId + i;
             String endpoint = UriComponentsBuilder
