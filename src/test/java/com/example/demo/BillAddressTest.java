@@ -203,4 +203,15 @@ public class BillAddressTest {
             System.out.println(hoho.stream().anyMatch(h -> h == entity));
         });
     }
+
+    @Test
+    public void test_list_limit() {
+        List<Integer> list = Collections.emptyList();
+        System.out.println(list);
+        System.out.println(list.stream().limit(10).collect(Collectors.toList()));
+        List<Integer> second = list.stream().limit(10).collect(Collectors.toList());
+        List<Integer> third = second.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        System.out.println(list.contains(11));
+
+    }
 }
