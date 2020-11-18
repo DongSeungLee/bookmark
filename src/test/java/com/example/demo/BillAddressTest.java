@@ -4,6 +4,7 @@ import com.example.demo.member.model.MemberEntity;
 import com.example.demo.model.BillAddressDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,9 +25,11 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 
+@Slf4j
 public class BillAddressTest {
 
     private BillAddressDto billAddressDto;
@@ -213,5 +216,18 @@ public class BillAddressTest {
         List<Integer> third = second.stream().filter(Objects::nonNull).collect(Collectors.toList());
         System.out.println(list.contains(11));
 
+    }
+
+    // single thread
+    @Test
+    public void test_stream_thread() {
+        Stream<Integer> intStream = IntStream.rangeClosed(1, 100).boxed();
+        List<Integer> list = intStream.collect(Collectors.toList());
+        list.stream().peek(this::printCurrentThread).collect(Collectors.toList());
+
+    }
+
+    private void printCurrentThread(Integer integer) {
+        log.info("current thread name : {}", Thread.currentThread().getName());
     }
 }
