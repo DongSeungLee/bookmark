@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -230,4 +231,16 @@ public class BillAddressTest {
     private void printCurrentThread(Integer integer) {
         log.info("current thread name : {}", Thread.currentThread().getName());
     }
+
+    @Test
+    public void test_myPredicate() {
+        Predicate<MemberEntity> first = (a) -> a.getMemberId() > 0;
+        Predicate<MemberEntity> second = (b) -> b.getMemberId() > 1;
+        MemberEntity entity = MemberEntity.builder()
+                .memberId(1)
+                .build();
+        System.out.println(first.and(second).test(entity));
+
+    }
+
 }
