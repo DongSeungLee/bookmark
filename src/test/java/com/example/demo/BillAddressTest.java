@@ -253,8 +253,9 @@ public class BillAddressTest {
                 .appendPattern("M/d/yyyy")
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
                 .toFormatter();
         LocalDateTime dateFrom = !ObjectUtils.isEmpty(strDateFrom) ? LocalDateTime.parse(strDateFrom, formatter) : null;
-        System.out.println(dateFrom);
+        System.out.println(LocalDateTime.parse(dateFrom.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"))));
     }
 }
