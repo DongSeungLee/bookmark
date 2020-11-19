@@ -250,7 +250,7 @@ public class BillAddressTest {
     public void test_localdateTimeParsing() {
         String strDateFrom = "1/1/2021";
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                .appendPattern("MM/d/yyyy")
+                .appendPattern("M/d/yyyy")
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                 .toFormatter();
