@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.util.ObjectUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
@@ -14,6 +15,8 @@ import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -243,4 +246,15 @@ public class BillAddressTest {
 
     }
 
+    @Test
+    public void test_localdateTimeParsing() {
+        String strDateFrom = "1/1/2021";
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("MM/d/yyyy")
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .toFormatter();
+        LocalDateTime dateFrom = !ObjectUtils.isEmpty(strDateFrom) ? LocalDateTime.parse(strDateFrom, formatter) : null;
+        System.out.println(dateFrom);
+    }
 }
