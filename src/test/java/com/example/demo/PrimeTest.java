@@ -76,4 +76,13 @@ public class PrimeTest {
                         }
                 );
     }
+
+    @Test
+    public void test_Integer() {
+        List<Integer> aa = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+        List<Integer> bb = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+        aa.stream().forEach(a -> {
+            System.out.println(String.valueOf(a) + bb.stream().noneMatch(b -> b == a));
+        });
+    }
 }
