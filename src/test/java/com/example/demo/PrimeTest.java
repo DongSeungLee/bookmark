@@ -3,9 +3,11 @@ package com.example.demo;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -81,7 +83,9 @@ public class PrimeTest {
     public void test_Integer() {
         List<Integer> aa = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
         List<Integer> bb = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+        System.out.println(IntStream.rangeClosed(1, 10).sum());
         aa.stream().forEach(a -> {
+
             System.out.println(String.valueOf(a) + bb.stream().noneMatch(b -> b == a));
         });
     }
