@@ -49,6 +49,7 @@ public class LocalDateTimeTest {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println(here.format(formatter));
-
+        Instant instant = Instant.now();
+        System.out.println(LocalDateTime.ofInstant(instant, la));
     }
 }
