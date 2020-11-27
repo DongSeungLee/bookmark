@@ -77,4 +77,28 @@ public class GroupingTest {
                 .filter(i -> i > 0)
                 .orElse(0);
     }
+
+    @Test
+    public void test_testFlatMap() {
+        List<String> list = Arrays.asList("hoho hehe", "hihi hehe");
+        System.out.println(list.stream().map(word -> word.split(" "))
+                .map(Arrays::stream)
+                .collect(Collectors.toList()));
+        List<String> ret = list.stream().map(word -> word.split(" "))
+                .flatMap(v -> Arrays.stream(v))
+                .collect(Collectors.toList());
+        System.out.println(ret);
+    }
+
+    @Test
+    public void test_all_pair_numbers() {
+        List<Integer> numbers1 = Arrays.asList(1, 2, 3);
+        List<Integer> numbers2 = Arrays.asList(4, 5);
+        List<int[]> pairs = numbers1.stream()
+                // parameter로 넘어가는 mapper가 (Integer)->(Stream<int[]>)과 같은 형식이기 때문에
+                // .map이라고 하면 Stream<Stream<int []>>가 return된다.
+                .flatMap(i -> numbers2.stream().map(j -> new int[]{i, j}))
+                .collect(Collectors.toList());
+        System.out.println(pairs);
+    }
 }

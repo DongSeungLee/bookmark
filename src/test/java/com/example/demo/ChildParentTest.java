@@ -173,8 +173,8 @@ public class ChildParentTest {
 
     private List<CategoryEntity> flatMapAll(List<CategoryEntity> here) {
         List<CategoryEntity> tmp = here.stream()
-                .map(entity -> entity.getChildren())
-                .flatMap(Collection::stream)
+                .map(CategoryEntity::getChildren)
+                .flatMap(v -> v.stream())
                 .collect(Collectors.toList());
         if (tmp.isEmpty()) {
             return Collections.EMPTY_LIST;
