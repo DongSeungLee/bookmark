@@ -10,6 +10,8 @@ public class DSTemporalAdjuster {
         // parameter가 UnaryOperator<LocalDate>이다.
         return TemporalAdjusters.ofDateAdjuster(
                 temporal -> {
+                    // dayOfWeek는 enum이다. MON,~, SUN까지 enum으로
+                    // data를 표시할 수 있다.
                     DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
                     int dateAdd = 1;
                     if (dow == DayOfWeek.FRIDAY) dateAdd = 3;
