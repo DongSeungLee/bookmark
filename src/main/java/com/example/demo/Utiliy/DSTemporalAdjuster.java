@@ -17,6 +17,8 @@ public class DSTemporalAdjuster {
                     if (dow == DayOfWeek.FRIDAY) dateAdd = 3;
                     else if (dow == DayOfWeek.SATURDAY) dateAdd = 2;
                     return temporal.plusDays(dateAdd);
+                    // plus를 보면 뒤의 paramater로 ChronoUnit.DAYS가 오면 plusDays로
+                    // 되어 있다. 따라서 temporal.plusDays(dateAdd);로 해도 상관없다.
                     //return temporal.plus(dateAdd, ChronoUnit.DAYS);
                 }
         );
