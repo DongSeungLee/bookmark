@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
@@ -36,9 +38,6 @@ public class LocalDateTimeTest {
         // LocalDate에서의 해당 달의 마지막 날, LocalDate를 return한다.
         LocalDate date3 = date2.with(lastDayOfMonth());
         System.out.println(String.format("last day of %s is %s", date3.getMonth(), date3.getDayOfWeek()));
-//        System.out.println(date3);
-//        System.out.println(date3.with(lastDayOfYear()));
-//        System.out.println(here.with(DSTemporalAdjuster.nextWorkingDay()));
         ZoneId seoul = ZoneId.of("Asia/Seoul");
         ZoneId la = ZoneId.of("America/Los_Angeles");
         // 현재 구한 시간의 시간대를 한국의 Seoul로 결정
@@ -51,5 +50,19 @@ public class LocalDateTimeTest {
         System.out.println(here.format(formatter));
         Instant instant = Instant.now();
         System.out.println(LocalDateTime.ofInstant(instant, la));
+    }
+
+    @Test
+    public void test_DSTemporalAdjuster() {
+        LocalDate here = LocalDate.of(2020, 11, 27);
+        System.out.println(here.with(DSTemporalAdjuster.nextWorkingDay()));
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime firstDayOfStartDateTime = LocalDateTime.of(start.getYear(), start.getMonthValue(), 1, 0, 0, 0);
+        System.out.println("firstr day of month " + start.with(TemporalAdjusters.firstDayOfMonth())
+                .withHour(0)
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0));
+        System.out.println("first day of month : " + firstDayOfStartDateTime);
     }
 }
