@@ -662,14 +662,21 @@ public class Home {
         log.warn("hoho request is called");
         try {
             // 이러면 timeout exception이 터진다.
+            // async로 task를 executor에 submit하고 최대 1초동안 기다린다.
             Future f = threadPoolTaskExecutor.submit(() -> log.info("post contruct"));
             f.get(1, TimeUnit.SECONDS);
-        } catch (TimeoutException e) {
+        }
+        // 계산 중 예외 발생
+        catch (ExecutionException e) {
+            log.error("ExecutionException  : {}", e.getMessage());
+        }
+        // thread interrupt 발생
+        catch (InterruptedException e) {
+            log.error("ExecutionException  : {}", e.getMessage());
+        }
+        // thread time out 발생
+        catch (TimeoutException e) {
             log.error("timeout Exception : {}", e.getMessage());
-        } catch (ExecutionException e) {
-            log.error("ExecutionException  : {}", e.getMessage());
-        } catch (InterruptedException e) {
-            log.error("ExecutionException  : {}", e.getMessage());
         }
 
         JsonResponse jsonResponse = new JsonResponse();
