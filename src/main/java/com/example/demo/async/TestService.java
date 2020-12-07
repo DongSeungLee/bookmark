@@ -33,10 +33,10 @@ public class TestService {
     }
 
     @Async("dsThreadPoolTaskExecutor")
-    public void hoho() throws InterruptedException {
-        Thread.sleep(1000);
-        for (int i = 0; i < 10; i++) {
-            log.info("async test service in hoho method : {} and {}", i, Thread.currentThread().getName());
+    public void hoho(int idx) throws InterruptedException {
+        for (int i = 0; i < 100; i++) {
+            Thread.sleep(1000);
+            log.info("{}th async test service in hoho method : {} and {}", idx, i, Thread.currentThread().getName());
         }
         return;
     }

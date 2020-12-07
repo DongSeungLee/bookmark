@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
-
+// this class is factory method for TemporalAdjuster functional interface
 public class DSTemporalAdjuster {
     public static TemporalAdjuster nextWorkingDay() {
         // parameter가 UnaryOperator<LocalDate>이다.

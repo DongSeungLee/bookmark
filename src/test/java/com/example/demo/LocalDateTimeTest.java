@@ -13,6 +13,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
@@ -64,5 +67,16 @@ public class LocalDateTimeTest {
                 .withSecond(0)
                 .withNano(0));
         System.out.println("first day of month : " + firstDayOfStartDateTime);
+        System.out.println("last day of month : " + firstDayOfStartDateTime.with(TemporalAdjusters.lastDayOfMonth()));
+        System.out.println("next monday is :" + start.plusDays(7L).with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)));
+    }
+
+    @Test
+    public void test_Instant() {
+        System.out.println(System.currentTimeMillis());
+        Period sevenDays = Period.ofDays(7);
+        System.out.println(LocalDateTime.now().plusDays(sevenDays.getDays()));
+        List<Integer> list = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+        list.removeIf(i -> i > 10);
     }
 }

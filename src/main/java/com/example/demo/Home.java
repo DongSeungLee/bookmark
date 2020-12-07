@@ -56,6 +56,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -90,6 +91,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 @Controller
@@ -141,6 +146,7 @@ public class Home {
 
     private final TokenAuthenticationService tokenAuthenticationService;
 
+    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
     @PostConstruct
     public void init() throws InterruptedException {
         RequestConfig requestConfig = RequestConfig.custom()
@@ -157,10 +163,32 @@ public class Home {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
 
         this.restTemplate = new RestTemplate(factory);
-        memberService.findAllEntityById(1);
+        //memberService.findAllEntityById(1);
+        // 이렇게 하면 3개의 .hoho() method가 실행되는데 그것이 하나의 단위로 async로 실행된다.
 //        testService.hoho();
-//        log.info("after test service");
-//        testService.func(10);
+//        testService.hoho();
+//        testService.hoho();
+        int idx = 1;
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+        testService.hoho(idx++);
+
+        log.info("after test service");
+        // testService.func(10);
 
 //        sendFavorite();
     }
@@ -178,7 +206,8 @@ public class Home {
                 @Qualifier("serviceHtmlClient") HttpClient htmlClient,
                 OrderService orderService,
                 MyContextContainer myContextContainer,
-                TokenAuthenticationService tokenAuthenticationService
+                TokenAuthenticationService tokenAuthenticationService,
+                @Qualifier("dsThreadPoolTaskExecutor") Executor threadPoolTaskExecutor
     ) throws InstantiationException, IllegalAccessException {
         this.testService = testService;
         this.hoho = hoho123;
@@ -212,6 +241,7 @@ public class Home {
         System.out.println("ChildParentEntity guid : " + entity.getGuid());
         System.out.println("ChildParentEntity parent : " + entity.getParent());
         this.tokenAuthenticationService = tokenAuthenticationService;
+        this.threadPoolTaskExecutor = (ThreadPoolTaskExecutor) threadPoolTaskExecutor;
 
     }
 
@@ -630,6 +660,18 @@ public class Home {
     public JsonResponse hohoRequest(@RequestBody HohoRequest request) {
         log.info("num exists in the requeset {}", request.isNumUpdated());
         log.warn("hoho request is called");
+        try {
+            // 이러면 timeout exception이 터진다.
+            Future f = threadPoolTaskExecutor.submit(() -> log.info("post contruct"));
+            f.get(1, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            log.error("timeout Exception : {}", e.getMessage());
+        } catch (ExecutionException e) {
+            log.error("ExecutionException  : {}", e.getMessage());
+        } catch (InterruptedException e) {
+            log.error("ExecutionException  : {}", e.getMessage());
+        }
+
         JsonResponse jsonResponse = new JsonResponse();
         jsonResponse.setSuccess(true);
 
