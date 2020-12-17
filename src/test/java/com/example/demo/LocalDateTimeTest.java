@@ -83,6 +83,5 @@ public class LocalDateTimeTest {
     public void test_spring_version() {
         System.out.println(org.springframework.core.SpringVersion.getVersion());
         System.out.println(org.springframework.core.SpringVersion.getVersion());
-
     }
 }
