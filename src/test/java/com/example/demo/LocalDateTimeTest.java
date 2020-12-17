@@ -47,7 +47,6 @@ public class LocalDateTimeTest {
         System.out.println(LocalDateTime.now().atZone(seoul));
         // 현재 구한 시간의 시간대를 LA의 시간으로 결정, 이렇게 해야 DST(Daylight Saving Time) = summer time과 같은 복잡한 시간도 처리해줄 수 있다.
         System.out.println(LocalDateTime.now().atZone(la));
-        System.out.println(Instant.ofEpochMilli(System.currentTimeMillis()).getEpochSecond());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println(here.format(formatter));
@@ -78,5 +77,12 @@ public class LocalDateTimeTest {
         System.out.println(LocalDateTime.now().plusDays(sevenDays.getDays()));
         List<Integer> list = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
         list.removeIf(i -> i > 10);
+    }
+
+    @Test
+    public void test_spring_version() {
+        System.out.println(org.springframework.core.SpringVersion.getVersion());
+        System.out.println(org.springframework.core.SpringVersion.getVersion());
+
     }
 }
